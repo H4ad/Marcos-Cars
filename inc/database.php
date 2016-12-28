@@ -17,15 +17,19 @@ function close_database($conn) {
 	}
 }
 
-function find( $table = null, $id = null, $limit = null, $betweenOne = null, $betweenTwo = null, $order = null ) {
+function find( $table = null, $id = null, $limit = null, $betweenOne = null, $betweenTwo = null, $order = null, $pagina = null, $reg = null ) {
 
 	$database = open_database();
 	$found = null;
+	$count_cars = countCars();
 	try {
+		if($pagina) { $registros = $reg; $numPaginas = ceil($count_cars/$registros); $inicio = ($registros*$pagina)-$registros; }
+		else{ $pagina = 1 ;}
 		if($limit) { $stringlimit = " LIMIT " . $limit; }
+		else if ($pagina){ $stringlimit = " LIMIT " . $inicio . "," . $registros; }
 		else { $stringlimit = ''; }
 		if($betweenOne == null) { $betweenOne = 2; }
-		if($betweenTwo == null) { $betweenTwo = countCars() - 2; }
+		if($betweenTwo == null) { $betweenTwo = $count_cars - 2; }
 		if($order == null) { $order = "ASC" ; }
 	  if ($id) {
 	    $sql = "SELECT * FROM " . $table . " WHERE id = " . $id . " BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY `id` " . $order . $stringlimit ;
