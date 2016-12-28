@@ -1,5 +1,5 @@
 <?php
-require_once('./config.php');
+require_once('../config.php');
 require_once(DBAPI);
 $produtos = null;
 $newsCars = null;
@@ -8,14 +8,15 @@ $countProduto = 0;
 /**
  *  Listagem de Clientes
  */
-function loadProduct() {
-	global $produtos;
-	$produtos = find_all('produtos');
-}
 
 function loadCarsHome() {
 	global $produtos;
 	$produtos = find('produtos', null, 9);
+}
+
+function loadCars($limit = null, $betweenOne = null, $betweenTwo = null, $order = null) {
+	global $produtos;
+	$produtos = find('produtos', null, $limit, $betweenOne, $betweenTwo, $order);
 }
 
 function loadNewCars() {

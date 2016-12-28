@@ -10,10 +10,8 @@
                	<div class="sort-by">
 		            <label>Organizar por</label>
 		            <select>
-		                            <option value="">
-		                    Nome                </option>
-		                            <option value="">
-		                    Preço                </option>
+		              <option value="">Nome</option>
+		              <option value="">Preço</option>
 		            </select>
 		            <a href=""><img src="images/arrow2.gif" alt="" class="v-middle"></a>
                </div>
@@ -22,13 +20,10 @@
         	<div class="limiter visible-desktop">
             <label>Mostrar</label>
             <select>
-                            <option value="" selected="selected">
-                    9                </option>
-                            <option value="">
-                    15                </option>
-                            <option value="">
-                    30                </option>
-                        </select> Por Pagina
+              <option value="" selected="selected">9</option>
+              <option value="">15</option>
+              <option value="">30</option>
+              </select> Por Pagina
              </div>
        		<ul class="dc_pagination dc_paginationA dc_paginationA06">
 			    <li><a href="#" class="previous">Paginas</a></li>
@@ -355,7 +350,7 @@
 				<div class="clear"></div>
 			</div>
 		  </div>
-			
+
 		      </div>
 			  <div class="clear"></div>
 			</div>

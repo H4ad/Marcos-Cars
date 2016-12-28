@@ -45,7 +45,7 @@
 				</div>
 				<div class="menu">
 							<ul class="megamenu skyblue">
-			<li class="active grid"><a href="index.php">Inicio</a></li>
+			  <li class="active grid"><a href="index.php">Inicio</a></li>
 				<li><a class="color6" href="pages/other.php">Localização</a></li>
 				<li><a class="color7" href="pages/other.php">Contato</a></li>
 			</ul>
