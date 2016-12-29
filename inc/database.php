@@ -23,11 +23,9 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 	$found = null;
 	$count_cars = countCars();
 	try {
-		if($pagina) { $registros = $reg; $numPaginas = ceil($count_cars/$registros); $inicio = ($registros*$pagina)-$registros; }
-		else{ $pagina = 1 ;}
+		if($pagina) { $registros = $reg; $numPaginas = ceil($count_cars/$registros); $inicio = ($registros*$pagina)-$registros; $stringlimit = " LIMIT " . $inicio . "," . $registros; }
 		if($limit) { $stringlimit = " LIMIT " . $limit; }
-		else if ($pagina){ $stringlimit = " LIMIT " . $inicio . "," . $registros; }
-		else { $stringlimit = ''; }
+		else{ $stringlimit = ''; }
 		if($betweenOne == null) { $betweenOne = 2; }
 		if($betweenTwo == null) { $betweenTwo = $count_cars - 2; }
 		if($order == null) { $order = "`id` ASC" ; }
@@ -82,10 +80,9 @@ function find_value( $busca = null, $order = null, $pagina = null, $reg = null )
 	$found = null;
 	$count_cars = countCars();
 	try {
-		if($pagina) { $registros = $reg; $numPaginas = ceil($count_cars/$registros); $inicio = ($registros*$pagina)-$registros; }
-		else{ $pagina = 1 ;}
-		if ($pagina){ $stringlimit = " LIMIT " . $inicio . "," . $registros; }
+		if($pagina){ $registros = $reg; $numPaginas = ceil($count_cars/$registros); $inicio = ($registros*$pagina)-$registros; $stringlimit = " LIMIT " . $inicio . "," . $registros; }
 		else{ $stringlimit = " LIMIT " . $count_cars; }
+		if($order == null) { $order = "`id` ASC" ; }
     $sql = "SELECT * FROM `produtos` WHERE `id` != 1 and `id` LIKE '". $busca ."' OR `nome` LIKE '". $busca ."' OR `preco` LIKE '". $busca ."' OR `ano` LIKE '". $busca ."' OR `km` LIKE '". $busca ."' OR `cor` LIKE '". $busca ."' OR `portas` LIKE '". $busca ."' OR `combustivel` LIKE '". $busca ."' OR `cambio` LIKE '". $busca ."' OR `final_placa` LIKE '". $busca ."' OR `carroceria` LIKE '". $busca ."' OR `data_anuncio` LIKE '". $busca ."' OR `observacoes` LIKE '". $busca . "' ORDER BY " . $order . $stringlimit;
     $result = $database->query($sql);
 

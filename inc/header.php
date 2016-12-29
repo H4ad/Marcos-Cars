@@ -19,13 +19,14 @@
 <script type="text/javascript" src="../js/megamenu.js"></script>
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
 <!--start slider -->
-    <link rel="stylesheet" href="../css/fwslider.css" media="all">
-    <script src="../js/jquery-ui.min.js"></script>
-    <script src="../js/css3-mediaqueries.js"></script>
-    <script src="../js/fwslider.js"></script>
+<link rel="stylesheet" href="../css/fwslider.css" media="all">
+<script src="../js/jquery-ui.min.js"></script>
+<script src="../js/css3-mediaqueries.js"></script>
+<script src="../js/fwslider.js"></script>
 <!--end slider -->
 <script src="../js/jquery.easydropdown.js"></script>
 </head>
+<form action="#" method="GET" id="carform">
 <body>
     <div class="header-top">
 		 <div class="wrap">
@@ -41,25 +42,14 @@
 			<div class="wrap">
 			<div class="header-bottom-left">
 				<div class="logo">
-					<a href="index.php"><img src="images/logo.png" alt=""/></a>
+					<a href="index.php"><img src="../images/logo.png" alt=""/></a>
 				</div>
 				<div class="menu">
-							<ul class="megamenu skyblue">
+				<ul class="megamenu skyblue">
 			  <li class="active grid"><a href="index.php">Inicio</a></li>
-				<li><a class="color6" href="pages/other.php">Localização</a></li>
-				<li><a class="color7" href="pages/contact.php">Contato</a></li>
+				<li><a class="color6" href="other.php">Carros</a></li>
+				<li><a class="color7" href="contact.php">Contato</a></li>
 			</ul>
 			</div>
 		</div>
-		 <div class="header-bottom-right">
-      <form action="other.php" method="GET">
-			<div class="search">
-				<input type="text" name="busca" class="textbox" value="Buscar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Buscar';}">
-				<input type="submit" id="submit">
-				<div id="response"> </div>
-		 </div>
-	   </form>
-		</div>
-		 <div class="clear"></div>
-		 </div>
 	</div>

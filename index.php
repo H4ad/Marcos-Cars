@@ -1,4 +1,3 @@
 <?php
-  require_once('inc/functions.php');
-	require_once('pages/index.php');
+  header("location:pages/index.php");
 ?>

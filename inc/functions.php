@@ -22,7 +22,7 @@ function loadCars($limit = null, $betweenOne = null, $betweenTwo = null, $order 
 function loadNewCars() {
 	global $newsCars;
 	$totalCars = countCars();
-	$newsCars = find('produtos', null, 3, $totalCars - 2, $totalCars, "DESC");
+	$newsCars = find('produtos', null, 3, $totalCars - 2, $totalCars, "`id` DESC");
 }
 
 function countCars() {

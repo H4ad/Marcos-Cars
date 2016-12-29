@@ -1,17 +1,28 @@
 <?php
 require_once('../inc/functions.php');
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
-$orderby = (isset($_POST['orderby']))? $_POST['orderby'] : "`id` DESC";
-$reg = (isset($_POST['carsperpage']))? $_POST['carsperpage'] : 15;
+$orderby = (isset($_GET['orderby']))? $_GET['orderby'] : "`id` DESC";
+$carsperpage = (isset($_GET['carsperpage']))? $_GET['carsperpage'] : 15;
 $busca = (isset($_GET['busca']))? $_GET['busca'] : null;
 if($busca){
-	buttonAsk($busca,$orderby,$pagina,$reg);
+	buttonAsk($busca,$orderby,$pagina,$carsperpage);
 }else {
-	loadCars(null,null,countCars(),$orderby,$pagina,$reg);
+	loadCars(null,null,countCars(),$orderby,$pagina,$carsperpage);
 }
 include(HEADER_TEMPLATE);
 $k = 0;
 ?>
+	<div class="header-bottom-right">
+	 <form action="#" method="GET">
+	 <div class="search">
+		 <input type="text" name="busca" class="textbox" value="Buscar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Buscar';}">
+		 <input type="submit" id="submit">
+		 <div id="response"> </div>
+	</div>
+	</form>
+	</div>
+	<div class="clear"></div>
+</div>
 <div class="mens">
   <div class="main">
      <div class="wrap">
@@ -20,22 +31,25 @@ $k = 0;
 		  	<div class="mens-toolbar">
           <div class="sort">
             <div class="sort-by">
-              <form action="#" method="post">
+              <form action="#" method="GET">
 		            <label>Organizar por</label>
 		            <select name="orderby" onchange="this.form.submit()">
-									<option value="`produtos`.`id` DESC">-</option>
-									<option value="`produtos`.`id` DESC">Recente</option>
-									<option value="`produtos`.`id` ASC">Antigo</option>
-		              <option value="`produtos`.`nome` ASC">Nome</option>
-		              <option value="`produtos`.`preco` DESC">Maior preço</option>
-									<option value="`produtos`.`preco` ASC">Menor preço</option>
+									<option value="`id` ASC">-</option>
+									<option value="`id` DESC">Recente</option>
+									<option value="`id` ASC">Antigo</option>
+		              <option value="`nome` ASC">Nome</option>
+		              <option value="`preco` DESC">Maior preço</option>
+									<option value="`preco` ASC">Menor preço</option>
 		            </select>
+								<input type="hidden" name="busca" value="<?php echo $busca; ?>">
+								<input type="hidden" name="carsperpage" value="<?php echo $carsperpage; ?>">
+								<input type="hidden" name="pagina" value="<?php echo $pagina; ?>">
             	</form>
           </div>
     		</div>
         <div class="pager">
         	<div class="limiter visible-desktop">
-						<form action="#" method="post">
+						<form action="#" method="GET">
             <label>Mostrar</label>
             <select name="carsperpage" onchange="this.form.submit()">
 							<option value="15">-</option>
@@ -45,13 +59,16 @@ $k = 0;
 							<option value="12">12</option>
 							<option value="15">15</option>
             </select> Por Pagina
+						<input type="hidden" name="busca" value="<?php echo $busca; ?>">
+						<input type="hidden" name="orderby" value="<?php echo $orderby; ?>">
+						<input type="hidden" name="pagina" value="<?php echo $pagina; ?>">
 					  </form>
           </div>
 	   		<div class="clear"></div>
     	</div>
      	<div class="clear"></div>
 	    </div>
-			<?php for($z = 1; $z <= ($reg/3); $z++) { ?>
+			<?php for($z = 1; $z <= ($carsperpage/3); $z++) { ?>
 			<div class="top-box">
 				<?php for($i = 1; $i < 4; $i++) { ?>
 				<?php if(!isset($produtos[$k]['id'])) { continue; } ?>
@@ -83,7 +100,7 @@ $k = 0;
 	<nav>
 	  <ul class="pagination">
 		<li>
-		  <a href="other.php?pagina=1" aria-label="Previous">
+		  <a href="other.php?pagina=1&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Previous">
 			<span aria-hidden="true">&laquo;</span>
 		  </a>
 		</li>
@@ -93,10 +110,10 @@ $k = 0;
 		if($pagina == $i)
 			$estilo = "class=\"active\"";
 		?>
-		<li <?php echo $estilo; ?> ><a href="other.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+		<li <?php echo $estilo; ?> ><a href="other.php?pagina=<?php echo $i; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>"><?php echo $i; ?></a></li>
 		<?php } ?>
 		<li>
-		  <a href="other.php?pagina=<?php echo $i-1; ?>" aria-label="Next">
+		  <a href="other.php?pagina=<?php echo $i-1; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Next">
 			<span aria-hidden="true">&raquo;</span>
 		  </a>
 		</li>
@@ -110,5 +127,5 @@ $k = 0;
 			</div>
 		   </div>
 		</div>
-		<script src="js/jquery.easydropdown.js"></script>
+		<script src="../js/jquery.easydropdown.js"></script>
 	<?php include(FOOTER_TEMPLATE); ?>
