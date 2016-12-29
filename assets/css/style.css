@@ -1618,7 +1618,8 @@ PANELS CONFIGURATIONS
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle .value a:hover, .panel.terques-chart .chart-tittle .value a.active {
-    color: #68dff0;
+    color: 
+	;
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle {

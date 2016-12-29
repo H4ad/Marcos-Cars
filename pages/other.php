@@ -76,7 +76,7 @@ $k = 0;
 					 <a href="single.html">
 					<div class="inner_content clearfix">
 					<div class="product_image">
-						<img src="images/produtos/<?php echo isset($produtos[$k]['id'])? getPatchFile($produtos[$k]['id']) : 'demoUpload.jpg'; ?>" alt=""/>
+						<img src="../images/produtos/<?php echo isset($produtos[$k]['id'])? getPatchFile($produtos[$k]['id']) : 'demoUpload.jpg'; ?>" alt=""/>
 					</div>
 						<div class="price">
 						 <div class="cart-left">
@@ -105,7 +105,8 @@ $k = 0;
 		  </a>
 		</li>
 		<?php
-		for($i = 1; $i < countCars() + 1; $i++) {
+		$numPaginas = ceil(countCars()/$carsperpage);
+		for($i = 1; $i < $numPaginas + 1; $i++) {
 		$estilo = "";
 		if($pagina == $i)
 			$estilo = "class=\"active\"";

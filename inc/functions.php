@@ -14,9 +14,9 @@ function loadCarsHome() {
 	$produtos = find('produtos', null, 9);
 }
 
-function loadCars($limit = null, $betweenOne = null, $betweenTwo = null, $order = null, $pagina = null, $reg = null) {
+function loadCars($limit = null, $betweenOne = null, $betweenTwo = null, $order = null, $pagina = null, $carsperpage = null) {
 	global $produtos;
-	$produtos = find('produtos', null, $limit, $betweenOne, $betweenTwo, $order, $pagina, $reg);
+	$produtos = find('produtos', null, $limit, $betweenOne, $betweenTwo, $order, $pagina, $carsperpage);
 }
 
 function loadNewCars() {
@@ -35,12 +35,16 @@ function getPatchFile($id){
 	return $patch[0]['patch_file'];
 }
 
-function buttonAsk($busca = null, $order = null, $pagina = null, $reg = null) {
+function buttonAsk($busca = null, $order = null, $pagina = null, $carsperpage = null) {
 	global $produtos;
-	$produtos = find_value($busca,$order,$pagina,$reg);
+	$produtos = find_value($busca,$order,$pagina,$carsperpage);
 }
 
 function getPatchBanner($id, $limit = null){
 	$patch = getPatchImage($id, $limit);
 	return $patch;
+}
+
+function addContact($nome = null, $email = null, $telefone = null, $assunto = null, $mensagem = null){
+	return insert_contact($nome, $email, $telefone, $assunto, $mensagem);
 }

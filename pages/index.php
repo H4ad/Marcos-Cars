@@ -4,6 +4,7 @@
 	loadNewCars();
 	include(HEADER_TEMPLATE);
 ?>
+<div class="clear"></div>
 	</div>
   <!-- start slider -->
     <div id="fwslider">

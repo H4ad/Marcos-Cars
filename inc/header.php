@@ -14,10 +14,14 @@
 <link href="../css/style.css" rel="stylesheet">
 
 <script type="text/javascript" src="../js/jquery1.min.js"></script>
+
+<!-- CSS CONTATO -->
+
 <!-- start menu -->
 <link href="../css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="../js/megamenu.js"></script>
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+
 <!--start slider -->
 <link rel="stylesheet" href="../css/fwslider.css" media="all">
 <script src="../js/jquery-ui.min.js"></script>
@@ -26,7 +30,6 @@
 <!--end slider -->
 <script src="../js/jquery.easydropdown.js"></script>
 </head>
-<form action="#" method="GET" id="carform">
 <body>
     <div class="header-top">
 		 <div class="wrap">
