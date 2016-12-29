@@ -52,11 +52,13 @@
 			</div>
 		</div>
 		 <div class="header-bottom-right">
-				 <div class="search">
-				<input type="text" name="s" class="textbox" value="Pesquisar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-				<input type="submit" value="Subscribe" id="submit" name="submit">
+      <form action="other.php" method="GET">
+			<div class="search">
+				<input type="text" name="busca" class="textbox" value="Buscar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Buscar';}">
+				<input type="submit" id="submit">
 				<div id="response"> </div>
 		 </div>
+	   </form>
 		</div>
 		 <div class="clear"></div>
 		 </div>

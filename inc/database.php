@@ -30,9 +30,9 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 		else { $stringlimit = ''; }
 		if($betweenOne == null) { $betweenOne = 2; }
 		if($betweenTwo == null) { $betweenTwo = $count_cars - 2; }
-		if($order == null) { $order = "ASC" ; }
+		if($order == null) { $order = "`id` ASC" ; }
 	  if ($id) {
-	    $sql = "SELECT * FROM " . $table . " WHERE id = " . $id . " BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY `id` " . $order . $stringlimit ;
+	    $sql = "SELECT * FROM " . $table . " WHERE id = " . $id . " BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY " . $order . $stringlimit ;
 	    $result = $database->query($sql);
 
 	    if ($result->num_rows > 0) {
@@ -40,7 +40,7 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 	    }
 
 	  } else {
-	    $sql = "SELECT * FROM " . $table . " WHERE `id` BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY `id` " . $order . $stringlimit ;
+	    $sql = "SELECT * FROM " . $table . " WHERE `id` BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY " . $order . $stringlimit ;
 	    $result = $database->query($sql);
 
 	    if ($result->num_rows > 0) {
@@ -67,6 +67,31 @@ function _count( $table = null ) {
 	    if ($result->num_rows > 0) {
 	      $found = $result->fetch_all(MYSQLI_ASSOC);
 	    }
+	} catch (Exception $e) {
+	  $_SESSION['message'] = $e->GetMessage();
+	  $_SESSION['type'] = 'danger';
+  }
+
+	close_database($database);
+	return $found;
+}
+
+function find_value( $busca = null, $order = null, $pagina = null, $reg = null ) {
+
+	$database = open_database();
+	$found = null;
+	$count_cars = countCars();
+	try {
+		if($pagina) { $registros = $reg; $numPaginas = ceil($count_cars/$registros); $inicio = ($registros*$pagina)-$registros; }
+		else{ $pagina = 1 ;}
+		if ($pagina){ $stringlimit = " LIMIT " . $inicio . "," . $registros; }
+		else{ $stringlimit = " LIMIT " . $count_cars; }
+    $sql = "SELECT * FROM `produtos` WHERE `id` != 1 and `id` LIKE '". $busca ."' OR `nome` LIKE '". $busca ."' OR `preco` LIKE '". $busca ."' OR `ano` LIKE '". $busca ."' OR `km` LIKE '". $busca ."' OR `cor` LIKE '". $busca ."' OR `portas` LIKE '". $busca ."' OR `combustivel` LIKE '". $busca ."' OR `cambio` LIKE '". $busca ."' OR `final_placa` LIKE '". $busca ."' OR `carroceria` LIKE '". $busca ."' OR `data_anuncio` LIKE '". $busca ."' OR `observacoes` LIKE '". $busca . "' ORDER BY " . $order . $stringlimit;
+    $result = $database->query($sql);
+
+    if ($result->num_rows > 0) {
+      $found = $result->fetch_all(MYSQLI_ASSOC);
+    }
 	} catch (Exception $e) {
 	  $_SESSION['message'] = $e->GetMessage();
 	  $_SESSION['type'] = 'danger';

@@ -35,6 +35,11 @@ function getPatchFile($id){
 	return $patch[0]['patch_file'];
 }
 
+function buttonAsk($busca = null, $order = null, $pagina = null, $reg = null) {
+	global $produtos;
+	$produtos = find_value($busca,$order,$pagina,$reg);
+}
+
 function getPatchBanner($id, $limit = null){
 	$patch = getPatchImage($id, $limit);
 	return $patch;

@@ -1,8 +1,14 @@
 <?php
 require_once('../inc/functions.php');
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+$orderby = (isset($_POST['orderby']))? $_POST['orderby'] : "`id` DESC";
 $reg = (isset($_POST['carsperpage']))? $_POST['carsperpage'] : 15;
-loadCars(null,null,countCars(),"DESC",$pagina,$reg);
+$busca = (isset($_GET['busca']))? $_GET['busca'] : null;
+if($busca){
+	buttonAsk($busca,$orderby,$pagina,$reg);
+}else {
+	loadCars(null,null,countCars(),$orderby,$pagina,$reg);
+}
 include(HEADER_TEMPLATE);
 $k = 0;
 ?>
@@ -10,24 +16,29 @@ $k = 0;
   <div class="main">
      <div class="wrap">
 		  <div class="cont span_2_of_3">
-		  	<h2 class="head">Todos em estoque</h2>
+		  	<h2 class="head">Todos á venda</h2>
 		  	<div class="mens-toolbar">
-              <div class="sort">
-               	<div class="sort-by">
+          <div class="sort">
+            <div class="sort-by">
+              <form action="#" method="post">
 		            <label>Organizar por</label>
-		            <select>
-									<option value="">Posição</option>
-		              <option value="">Nome</option>
-		              <option value="">Preço</option>
+		            <select name="orderby" onchange="this.form.submit()">
+									<option value="`produtos`.`id` DESC">-</option>
+									<option value="`produtos`.`id` DESC">Recente</option>
+									<option value="`produtos`.`id` ASC">Antigo</option>
+		              <option value="`produtos`.`nome` ASC">Nome</option>
+		              <option value="`produtos`.`preco` DESC">Maior preço</option>
+									<option value="`produtos`.`preco` ASC">Menor preço</option>
 		            </select>
-               </div>
+            	</form>
+          </div>
     		</div>
         <div class="pager">
         	<div class="limiter visible-desktop">
 						<form action="#" method="post">
             <label>Mostrar</label>
             <select name="carsperpage" onchange="this.form.submit()">
-							<option value="15">0</option>
+							<option value="15">-</option>
 							<option value="3">3</option>
               <option value="6">6</option>
               <option value="9">9</option>
@@ -43,6 +54,7 @@ $k = 0;
 			<?php for($z = 1; $z <= ($reg/3); $z++) { ?>
 			<div class="top-box">
 				<?php for($i = 1; $i < 4; $i++) { ?>
+				<?php if(!isset($produtos[$k]['id'])) { continue; } ?>
 				<div class="col_1_of_3 span_1_of_3">
 					 <a href="single.html">
 					<div class="inner_content clearfix">
