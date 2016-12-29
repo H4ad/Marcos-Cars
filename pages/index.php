@@ -3,6 +3,7 @@
 	loadCarsHome();
 	loadNewCars();
 	include(HEADER_TEMPLATE);
+	$k = 0;
 ?>
 <div class="clear"></div>
 	</div>
@@ -13,7 +14,9 @@
 					<?php foreach($banners as $banner){ ?>
 						<div class="slide">
                 <!-- Slide image -->
-                <img src="../images/<?php echo $banner['patch_file']; ?>" alt=""/>
+								<div class="banner_image">
+                	<img src="../images/<?php echo $banner['patch_file']; ?>" alt="" />
+							  </div>
                 <!-- /Slide image -->
                 <!-- Texts container -->
                 <div class="slide_content">
@@ -41,21 +44,21 @@
 	<div class="wrap">
 		<div class="section group">
 		  <div class="cont span_2_of_3">
-		  	<h2 class="head">Featured Products</h2>
-				<?php for($z = 1; $z < 4; $z++) { ?>
+		  	<h2 class="head">Á venda</h2>
+				<?php for($z = 1; $z <= 3; $z++) { ?>
 					<div class="top-box">
-						<?php for($i = 1; $i < 4; $i++) { ?>
+						<?php for($i = 1; $i <= 3; $i++) { ?>
 						<div class="col_1_of_3 span_1_of_3">
 							 <a href="single.html">
 							<div class="inner_content clearfix">
 							<div class="product_image">
-								<img src="images/produtos/<?php echo isset($produtos[$i*$z-1]['id'])? getPatchFile($produtos[$i*$z-1]['id']) : 'demoUpload.jpg'; ?>" alt=""/>
+								<img src="../images/produtos/<?php echo isset($produtos[$k]['id'])? getPatchFile($produtos[$k]['id']) : 'demoUpload.jpg'; ?>" alt=""/>
 							</div>
 								<div class="price">
 								 <div class="cart-left">
-									 <p class="title"><?php echo isset($produtos[$i*$z-1]['nome'])? $produtos[$i*$z-1]['nome'] : 'Adicione algum produto!'; ?></p>
+									 <p class="title"><?php echo isset($produtos[$k]['nome'])? $produtos[$k]['nome'] : 'Adicione algum produto!'; ?></p>
 										<div class="price1">
-											<span class="actual"><?php echo isset($produtos[$i*$z-1]['preco'])? $produtos[$i*$z-1]['preco'] : '0'; ?></span>
+											<span class="actual"><?php echo isset($produtos[$k]['preco'])? $produtos[$k]['preco'] : '0'; ?></span>
 									</div>
 								</div>
 								<div class="cart-right"> </div>
@@ -64,7 +67,7 @@
 								</div>
 								</a>
 						</div>
-						<?php } ?>
+						<?php $k++; } ?>
 					</div>
 					<div class="clear"></div>
 			  <?php } ?>

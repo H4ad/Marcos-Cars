@@ -27,7 +27,7 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 		else if ($limit) { $stringlimit = " LIMIT " . $limit; }
 		else{ $stringlimit = ''; }
 		if($betweenOne == null) { $betweenOne = 2; }
-		if($betweenTwo == null) { $betweenTwo = $count_cars - 2; }
+		if($betweenTwo == null) { $betweenTwo = $count_cars - 3; }
 		if($order == null) { $order = "`id` ASC" ; }
 	  if ($id) {
 	    $sql = "SELECT * FROM " . $table . " WHERE id = " . $id . " BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY " . $order . $stringlimit ;
