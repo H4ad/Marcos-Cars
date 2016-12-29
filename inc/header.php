@@ -15,8 +15,6 @@
 
 <script type="text/javascript" src="../js/jquery1.min.js"></script>
 
-<!-- CSS CONTATO -->
-
 <!-- start menu -->
 <link href="../css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="../js/megamenu.js"></script>
@@ -29,6 +27,7 @@
 <script src="../js/fwslider.js"></script>
 <!--end slider -->
 <script src="../js/jquery.easydropdown.js"></script>
+<?php echo isset($script)? $script : ''; ?>
 </head>
 <body>
     <div class="header-top">

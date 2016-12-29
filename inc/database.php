@@ -17,7 +17,7 @@ function close_database($conn) {
 	}
 }
 
-function find( $table = null, $id = null, $limit = null, $betweenOne = null, $betweenTwo = null, $order = null, $pagina = null, $carsperpage = null ) {
+function find( $table = null, $id = null, $limit = null, $betweenOne = null, $betweenTwo = null, $order = null, $pagina = null, $carsperpage = null, $exceptionid = null ) {
 
 	$database = open_database();
 	$found = null;
@@ -29,6 +29,7 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 		if($betweenOne == null) { $betweenOne = 2; }
 		if($betweenTwo == null) { $betweenTwo = $count_cars - 3; }
 		if($order == null) { $order = "`id` ASC" ; }
+		if($exceptionid == null) { $exceptionid = 2;}
 	  if ($id) {
 	    $sql = "SELECT * FROM " . $table . " WHERE id = " . $id . " BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY " . $order . $stringlimit ;
 	    $result = $database->query($sql);
@@ -38,7 +39,7 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 	    }
 
 	  } else {
-	    $sql = "SELECT * FROM " . $table . " WHERE `id` BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY " . $order . $stringlimit ;
+	    $sql = "SELECT * FROM " . $table . " WHERE `id` != ". $exceptionid ." and `id` BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY " . $order . $stringlimit ;
 	    $result = $database->query($sql);
 
 	    if ($result->num_rows > 0) {

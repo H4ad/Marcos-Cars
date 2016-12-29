@@ -53,16 +53,14 @@
 		      </div>
 				<div class="f-list2">
 				 <ul>
-					<li><a href="contact.html">Contato</a></li>
+					<li><a href="contact.php">Contato</a></li>
 				 </ul>
 			    </div>
 			    <div class="clear"></div>
 		      </div>
 	     </div>
 	</div>
-
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="../assets/js/bootstrap.min.js"></script>
-
 </body>
 </html>

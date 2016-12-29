@@ -14,9 +14,9 @@ function loadCarsHome() {
 	$produtos = find('produtos', null, 9);
 }
 
-function loadCars($limit = null, $betweenOne = null, $betweenTwo = null, $order = null, $pagina = null, $carsperpage = null) {
+function loadCars($limit = null, $betweenOne = null, $betweenTwo = null, $order = null, $pagina = null, $carsperpage = null,$exceptionid = null) {
 	global $produtos;
-	$produtos = find('produtos', null, $limit, $betweenOne, $betweenTwo, $order, $pagina, $carsperpage);
+	$produtos = find('produtos', null, $limit, $betweenOne, $betweenTwo, $order, $pagina, $carsperpage, $exceptionid);
 }
 
 function loadNewCars() {
