@@ -27,7 +27,16 @@
 						<div class="company_address">
 				      <p>Brasil</p>
 						  <p>Telefone: (15) 981081215</p>
-						  <p>Email: vendasluizmachado@gmail.com</p>
+						  <p>Email: vendasluizmachado@gmail.com</p><br>
+						  <p>Marcio Multimarcas - Loja 1
+              Av. Dr. Américo Figueiredo, 1865 , Jd. Simus
+              Sorocaba, SP 18055-132
+              Tel: (15) 3357-6044 / (15) 99842-4140</p>
+              <p>Marcio Multimarcas - Loja 2
+              Av. Paulo Emanuel de Almeida, 440 , Parque dos Eucaliptos
+              Sorocaba, SP 18053-505
+              Tel: (15) 3388-6621 /
+              </p>
 					   </div>
 					   <!-- <div class="social-media">
 						     <ul>
@@ -62,5 +71,6 @@
 	</div>
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="../assets/js/bootstrap.min.js"></script>
+	<?php echo isset($footer)? $footer : ''; ?>
 </body>
 </html>

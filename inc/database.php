@@ -143,4 +143,21 @@ function insert_contact( $nome = null, $email = null, $telefone = null, $assunto
 	close_database($database);
 	return $found;
 }
+
+function insert_car( $nome = null, $preco = null, $ano = null, $km = null, $cor = null, $portas = null, $combustivel = null, $cambio = null, $final_placa = null, $carroceria = null, $observacoes = null, $detalhes = null) {
+
+	$database = open_database();
+	$found = false;
+	try {
+	    $sql = "INSERT INTO `ecommerce`.`produtos` VALUES (null,'".$nome."', '".$preco."', '".$ano."', '".$km."', '".$cor."', '".$portas."', '".$combustivel."', '".$cambio."', '".$final_placa."', '".$carroceria."', CURRENT_TIMESTAMP,'".$observacoes."', '".$detalhes."');";
+	    $result = $database->query($sql);
+      $found = true;
+	} catch (Exception $e) {
+	  $_SESSION['message'] = $e->GetMessage();
+	  $_SESSION['type'] = 'danger';
+  }
+
+	close_database($database);
+	return $found;
+}
 ?>

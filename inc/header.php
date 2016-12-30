@@ -8,12 +8,8 @@
 <link href="../css/form.css" rel="stylesheet" type="text/css" media="all" />
 <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
 
-<!-- FileUpload CSS -->
-<link rel="stylesheet" href="../css/bootstrap-fileupload.min.css" />
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/style.css" rel="stylesheet">
-
 <script type="text/javascript" src="../js/jquery1.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
 
 <!-- start menu -->
 <link href="../css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
@@ -26,6 +22,7 @@
 <script src="../js/css3-mediaqueries.js"></script>
 <script src="../js/fwslider.js"></script>
 <!--end slider -->
+
 <script src="../js/jquery.easydropdown.js"></script>
 <?php echo isset($script)? $script : ''; ?>
 </head>

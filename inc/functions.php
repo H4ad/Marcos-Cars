@@ -53,3 +53,7 @@ function getCar($id = null) {
 function addContact($nome = null, $email = null, $telefone = null, $assunto = null, $mensagem = null){
 	return insert_contact($nome, $email, $telefone, $assunto, $mensagem);
 }
+
+function addCar($nome = null, $preco = null, $ano = null, $km = null, $cor = null, $portas = null, $combustivel = null, $cambio = null, $final_placa = null, $carroceria = null, $observacoes = null, $detalhes = null){
+	return insert_car($nome, $preco, $ano, $km, $cor, $portas, $combustivel, $cambio, $final_placa, $carroceria, $observacoes, $detalhes);
+}

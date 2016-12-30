@@ -50,7 +50,7 @@
 					<div class="top-box">
 						<?php for($i = 1; $i <= 3; $i++) {
 						if(!isset($produtos[$k]['id'])) { $img = 'demoUpload.jpg';}
-						else { $img = getPatchFile($produtos[$k]['id'],1); }
+						else { $img = getPatchFile($produtos[$k]['id'],1); $img = $img[0]['patch_file'];}
 						?>
 						<div class="col_1_of_3 span_1_of_3">
 							 <a href="single.php?id=<?php echo isset($produtos[$k]['id'])? $produtos[$k]['id'] : ''; ?>">

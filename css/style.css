@@ -650,7 +650,7 @@ p.m_text{
 	font-size:0.95em;
 	margin-bottom:20px;
 }
-.subscribe form input[type="text"] {
+.subscribe form input[type="text"],input[type="number"] {
 	font-family: 'Exo 2', sans-serif;
 	border:1px solid #ddd;
 	outline: none;
@@ -998,7 +998,7 @@ h4.title{
 	border-bottom: 1px solid #DFDDDD;
 	padding-bottom: 13px;
 }
-input.inputbox, input.required, div.k2AccountPage input[type="text"] {
+input.inputbox, input.required, div.k2AccountPage input[type="text"] input[type="number"] {
 	background: #FFF;
 	border: 1px solid #BDBCBC;
 	color: inherit;
@@ -1074,7 +1074,7 @@ table {
 .register_account table td {
 	width: 100%;
 }
-.register_account form input[type="text"], .register_account form select {
+.register_account form input[type="text"], input[type="number"],input[type="date"], .register_account form select {
 	font-size:0.95em;
 	color:#777;
 	padding: 8px;
@@ -1088,16 +1088,16 @@ table {
 	-moz-box-shadow:0 0 2px #aaa;
 	-o-box-shadow:0 0 2px #aaa;
 }
-.register_account form input[type="text"]:hover, .register_account form select:hover {
+.register_account form input[type="text"]:hover, input[type="number"]:hover,input[type="date"]:hover, .register_account form select:hover {
 	box-shadow:0 0 4px #aaa;
 	-webkit-box-shadow:0 0 4px #aaa;
 	-moz-box-shadow:0 0 4px #aaa;
 	-o-box-shadow:0 0 4px #aaa;
 }
-.register_account form input[type="text"].code {
+.register_account form input[type="text"].code, input[type="number"].code, input[type="date"].code {
 	width: 15%;
 }
-.register_account form input[type="text"].number {
+.register_account form input[type="text"].number, input[type="number"].number,input[type="date"].number {
 	width: 69.8%;
 }
 p.terms a, p.note a {
@@ -1128,7 +1128,7 @@ button.grey:hover {
 	background:#4CB1CA;
 	color: #FFF;
 }
-.register_account form input[type="text"].code {
+.register_account form input[type="text"].code,input[type="number"].code,input[type="date"].code {
 	width: 15%;
 }
 p.code{
@@ -3331,4 +3331,11 @@ ul.sidebar-menu li ul.sub li.active a {
 
 a.logo span {
     color: #68dff0;
+}
+
+.register-area textarea{
+	width: 91%;
+	height: 120px;
+	outline: none;
+	resize: none;
 }

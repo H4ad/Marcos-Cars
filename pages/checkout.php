@@ -38,8 +38,8 @@
                                 <div>
                                     <span class="btn btn-file btn-primary"><span class="fileupload-new">Selecionar Imagem</span><span class="fileupload-exists">Alterar</span><input name="fileUpload" type="file" /></span>
                                      <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-									<a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remover</a>
-									<!--<button class="btn btn-success fileupload-exists" type="submit">Enviar</button>-->
+                									<a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remover</a>
+                									<!--<button class="btn btn-success fileupload-exists" type="submit">Enviar</button>-->
                                 </div>
                             </div>
                         </div>
