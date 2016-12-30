@@ -1,4 +1,4 @@
-<?php require_once('../config.php'); ?>
+<?php require_once('../inc/config.php'); ?>
 <?php include(HEADER_TEMPLATE); ?>
 <div class="register_account">
   <div id="main" class="container-fluid">
