@@ -4,6 +4,7 @@ require_once(DBAPI);
 $produtos = null;
 $newsCars = null;
 $produto = null;
+$car = null;
 $countProduto = 0;
 /**
  *  Listagem de Clientes
@@ -21,8 +22,7 @@ function loadCars($limit = null, $betweenOne = null, $betweenTwo = null, $order 
 
 function loadNewCars() {
 	global $newsCars;
-	$totalCars = countCars();
-	$newsCars = find('produtos', null, 3, $totalCars - 2, $totalCars, "`id` DESC");
+	$newsCars = find('produtos', null, 3,null,countCars(), "`id` DESC");
 }
 
 function countCars() {
@@ -30,9 +30,9 @@ function countCars() {
 	return $counter[0]['result'];
 }
 
-function getPatchFile($id){
-	$patch = getPatchImage($id, 1);
-	return $patch[0]['patch_file'];
+function getPatchFile($id = null, $limit = null){
+	$patch = getPatchImage($id, $limit);
+	return $patch;
 }
 
 function buttonAsk($busca = null, $order = null, $pagina = null, $carsperpage = null) {
@@ -43,6 +43,11 @@ function buttonAsk($busca = null, $order = null, $pagina = null, $carsperpage = 
 function getPatchBanner($id, $limit = null){
 	$patch = getPatchImage($id, $limit);
 	return $patch;
+}
+
+function getCar($id = null) {
+	$car = find('produtos', $id,null,null,countCars());
+	return $car;
 }
 
 function addContact($nome = null, $email = null, $telefone = null, $assunto = null, $mensagem = null){

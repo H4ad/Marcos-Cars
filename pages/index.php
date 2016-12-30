@@ -4,6 +4,7 @@
 	loadNewCars();
 	include(HEADER_TEMPLATE);
 	$k = 0;
+	$img = '';
 ?>
 <div class="clear"></div>
 	</div>
@@ -47,12 +48,15 @@
 		  	<h2 class="head">Á venda</h2>
 				<?php for($z = 1; $z <= 3; $z++) { ?>
 					<div class="top-box">
-						<?php for($i = 1; $i <= 3; $i++) { ?>
+						<?php for($i = 1; $i <= 3; $i++) {
+						if(!isset($produtos[$k]['id'])) { $img = 'demoUpload.jpg';}
+						else { $img = getPatchFile($produtos[$k]['id'],1); }
+						?>
 						<div class="col_1_of_3 span_1_of_3">
-							 <a href="single.html">
+							 <a href="single.php?id=<?php echo isset($produtos[$k]['id'])? $produtos[$k]['id'] : ''; ?>">
 							<div class="inner_content clearfix">
 							<div class="product_image">
-								<img src="../images/produtos/<?php echo isset($produtos[$k]['id'])? getPatchFile($produtos[$k]['id']) : 'demoUpload.jpg'; ?>" alt=""/>
+								<img src="../images/produtos/<?php echo $img; ?>" alt=""/>
 							</div>
 								<div class="price">
 								 <div class="cart-left">
@@ -71,16 +75,19 @@
 					</div>
 					<div class="clear"></div>
 			  <?php } ?>
-	    <h2 class="head">New Products</h2>
+	    <h2 class="head">Novos Carros</h2>
 		    <div class="section group">
-				<?php for($i = 0; $i < 3; $i++) { ?>
+				<?php for($i = 0; $i < 3; $i++) {
+				if(!isset($newsCars[$i]['id'])) { $img = 'demoUpload.jpg';}
+				else { $img = getPatchFile($newsCars[$i]['id'],1); $img = $img[0]['patch_file']; }
+				?>
 			  <div class="col_1_of_3 span_1_of_3">
-			  	 <a href="single.php">
+			  	 <a href="single.php?id=<?php echo $newsCars[$i]['id']; ?>">
 					<div class="inner_content clearfix">
 				  <div class="product_image">
-						<img src="images/produtos/<?php echo isset($newsCars[$i]['id'])? getPatchFile($newsCars[$i]['id']) : 'demoUpload.jpg'; ?>" alt=""/>
+						<img src="../images/produtos/<?php echo $img; ?>" alt=""/>
 					</div>
-          <div class="sale-box"><span class="on_sale title_shop">New</span></div>
+          <div class="sale-box"><span class="on_sale title_shop">Novos</span></div>
             <div class="price">
 						  <div class="cart-left">
 								<p class="title"><?php echo isset($newsCars[$i]['nome'])? $newsCars[$i]['nome'] : 'Adicione algum produto!'; ?></p>

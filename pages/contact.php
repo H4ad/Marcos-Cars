@@ -28,7 +28,7 @@ if($nome){
     				</div>
     				<div class="to">
                         <input name="telefone" type="text" class="text" placeholder="Telefone:" required>
-    				 	<input name="assunto" type="text" class="text" placeholder="Assunto:" style="margin-left: 10px" required>
+    				 	<input name="assunto" type="text" class="text" placeholder="Assunto:" value="<?php echo isset($assunto)? $assunto : '';?>" style="margin-left: 10px" required>
     				</div>
     				<div class="text">
                         <textarea name="mensagem" placeholder="Mensagem:" required></textarea>

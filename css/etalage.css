@@ -23,7 +23,15 @@
 }
 
 /* Large thumbnail - image (in case you want to add a border around the image within the frame) */
-#etalage .etalage_thumb_image{ }
+#etalage .etalage_thumb_image{ 
+	width: 360;
+	heigth: 300;
+}
+
+#etalage .etalage_thumb_image img{ 
+	width: 100%;
+	heigth: 100%;
+}
 
 /* Small thumbnails: */
 #etalage .etalage_small_thumbs li{
@@ -92,15 +100,15 @@
 .etalage img, .etalage li{ -webkit-user-select:none; -khtml-user-select:none; -moz-user-select:none; -o-user-select:none; user-select:none; -webkit-user-drag:none; -moz-user-drag:none; user-drag:none }
 .etalage, .etalage_small_thumbs li{ float:left }
 .etalage_small_thumbs li img{
-	width:82px !important;
-	height:100% !important;
+	width:101px !important;
+	height:84px !important;
 }
 .etalage_small_thumbs{
 	width:100% !important;
 }
 .etalage_right{ float:right }
 .etalage li{ position:absolute }
-.etalage img{ vertical-align:bottom; max-width:none; }
+.etalage img{ vertical-align:bottom; max-width:none; max-height:none; }
 .etalage_thumb_image{
 	width:100% !important;
 }

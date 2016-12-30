@@ -1,8 +1,13 @@
 <?php
+error_reporting(0);
+ini_set("display_errors", 0 );
+
 require_once('../inc/functions.php');
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+if(!is_numeric($pagina)) { $pagina = 1; }
 $orderby = (isset($_GET['orderby']))? $_GET['orderby'] : "`id` DESC";
 $carsperpage = (isset($_GET['carsperpage']))? $_GET['carsperpage'] : 15;
+if(!is_numeric($carsperpage)) { $carsperpage = 15; }
 $busca = (isset($_GET['busca']))? $_GET['busca'] : null;
 if($busca){
 	buttonAsk($busca,$orderby,$pagina,$carsperpage);
@@ -70,13 +75,16 @@ $k = 0;
 	    </div>
 			<?php for($z = 1; $z <= ($carsperpage/3); $z++) { ?>
 			<div class="top-box">
-				<?php for($i = 1; $i < 4; $i++) { ?>
-				<?php if(!isset($produtos[$k]['id'])) { continue; } ?>
+				<?php for($i = 1; $i < 4; $i++) {
+			  if(!isset($produtos[$k]['id'])) { continue; }
+        if(!isset($produtos[$k]['id'])) { $img = 'demoUpload.jpg';}
+        else { $img = getPatchFile($produtos[$k]['id'],1); $img = $img[0]['patch_file']; }
+        ?>
 				<div class="col_1_of_3 span_1_of_3">
-					 <a href="single.html">
+					 <a href="single.php?id=<?php echo $produtos[$k]['id']; ?>">
 					<div class="inner_content clearfix">
 					<div class="product_image">
-						<img src="../images/produtos/<?php echo isset($produtos[$k]['id'])? getPatchFile($produtos[$k]['id']) : 'demoUpload.jpg'; ?>" alt=""/>
+						<img src="../images/produtos/<?php echo $img; ?>" alt=""/>
 					</div>
 						<div class="price">
 						 <div class="cart-left">
@@ -96,31 +104,31 @@ $k = 0;
 			</div>
 			<?php } ?>
 			<div class="tob-box">
-				<!-- Pagination -->
-	<nav>
-	  <ul class="pagination">
-		<li>
-		  <a href="other.php?pagina=1&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Previous">
-			<span aria-hidden="true">&laquo;</span>
-		  </a>
-		</li>
-		<?php
-		$numPaginas = ceil(countCars()/$carsperpage);
-		for($i = 1; $i < $numPaginas + 1; $i++) {
-		$estilo = "";
-		if($pagina == $i)
-			$estilo = "class=\"active\"";
-		?>
-		<li <?php echo $estilo; ?> ><a href="other.php?pagina=<?php echo $i; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>"><?php echo $i; ?></a></li>
-		<?php } ?>
-		<li>
-		  <a href="other.php?pagina=<?php echo $i-1; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Next">
-			<span aria-hidden="true">&raquo;</span>
-		  </a>
-		</li>
-	  </ul>
-	</nav>
-	<!-- Pagination -->
+			<!-- Pagination -->
+			<nav>
+			  <ul class="pagination">
+				<li>
+				  <a href="other.php?pagina=1&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				  </a>
+				</li>
+				<?php
+				$numPaginas = ceil(countCars()/$carsperpage);
+				for($i = 1; $i < $numPaginas + 1; $i++) {
+				$estilo = "";
+				if($pagina == $i)
+					$estilo = "class=\"active\"";
+				?>
+				<li <?php echo $estilo; ?> ><a href="other.php?pagina=<?php echo $i; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>"><?php echo $i; ?></a></li>
+				<?php } ?>
+				<li>
+				  <a href="other.php?pagina=<?php echo $i-1; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				  </a>
+				</li>
+			  </ul>
+			</nav>
+			<!-- Pagination -->
 			</div>
 		  </div>
 		      </div>

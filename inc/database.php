@@ -29,9 +29,9 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 		if($betweenOne == null) { $betweenOne = 2; }
 		if($betweenTwo == null) { $betweenTwo = $count_cars - 3; }
 		if($order == null) { $order = "`id` ASC" ; }
-		if($exceptionid == null) { $exceptionid = 2;}
+		if($exceptionid == null) { $exceptionid = 1;}
 	  if ($id) {
-	    $sql = "SELECT * FROM " . $table . " WHERE id = " . $id . " BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY " . $order . $stringlimit ;
+	    $sql = "SELECT * FROM " . $table . " WHERE id = " . $id . " and `id` BETWEEN " . $betweenOne ." AND " . $betweenTwo . " ORDER BY " . $order . $stringlimit ;
 	    $result = $database->query($sql);
 
 	    if ($result->num_rows > 0) {
@@ -109,9 +109,11 @@ function getPatchImage( $id = null, $limit = null ) {
     $sql = "SELECT patch_file FROM `galeria` WHERE `car_id` = " . $id . $stringlimit;
     $result = $database->query($sql);
 
-    if ($result->num_rows > 0) {
-      $found = $result->fetch_all(MYSQLI_ASSOC);
-    }
+		if(is_object($result)){
+	    if ($result->num_rows > 0) {
+	      $found = $result->fetch_all(MYSQLI_ASSOC);
+	    }
+		}
 	} catch (Exception $e) {
 	  $_SESSION['message'] = $e->GetMessage();
 	  $_SESSION['type'] = 'danger';

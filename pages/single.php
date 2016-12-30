@@ -1,11 +1,17 @@
 <?php require_once('../inc/functions.php');
 $allcars = countCars();
 $id = (isset($_GET['id']))? $_GET['id'] : $allcars;
+if($id == '' || $id == 1 || $id == 0 || !is_numeric($id)) { $id = $allcars; }
 loadCars(5,null,$allcars,"`id` DESC",null,null,$id);
+$car = getCar($id);
 $script="
 <script>
         function getCar(id) {
 					var local = \"single.php?id=\" + id;
+          location.href = local;
+        }
+				function gotoContact() {
+					var local = \"contact.php\";
           location.href = local;
         }
 </script>
@@ -39,10 +45,10 @@ $script="
 
 				$('#etalage').etalage({
 					thumb_image_width: 360,
-					thumb_image_height: 360,
+					thumb_image_height: 300,
 					source_image_width: 1080,
 					source_image_height: 1080,
-					show_hint: true,
+					show_hint: false,
 				});
 
 			});
@@ -54,39 +60,31 @@ $script="
 <div class="mens">
   <div class="main">
      <div class="wrap">
-     	<ul class="breadcrumb breadcrumb__t"><a class="home" href="#">Home</a> / <a href="#">Dolor sit amet</a> / Lorem ipsum dolor sit amet</ul>
+     	<ul class="breadcrumb breadcrumb__t"><a class="home" href="#">Inicio</a> / <a href="other.php">Carros</a> / <?php echo $car['nome']; ?></ul>
 		<div class="cont span_2_of_3">
 		  	<div class="grid images_3_of_2">
 						<ul id="etalage">
+						<?php $imgCar = getPatchFile($car['id']);
+						foreach($imgCar as $image){
+						?>
 							<li>
-								<img class="etalage_thumb_image" src="../images/s-img.jpg" class="img-responsive" />
-								<img class="etalage_source_image" src="../images/s1.jpg" class="img-responsive" title="" />
+								<img class="etalage_thumb_image" src="../images/produtos/<?php echo $image['patch_file']; ?>" class="img-responsive" />
+								<img class="etalage_source_image" src="../images/produtos/<?php echo $image['patch_file']; ?>" class="img-responsive" />
 							</li>
-							<li>
-								<img class="etalage_thumb_image" src="../images/s-img1.jpg" class="img-responsive" />
-								<img class="etalage_source_image" src="../images/s2.jpg" class="img-responsive" title="" />
-							</li>
-							<li>
-								<img class="etalage_thumb_image" src="../images/s-img2.jpg" class="img-responsive"  />
-								<img class="etalage_source_image" src="../images/s3.jpg" class="img-responsive"  />
-							</li>
-						    <li>
-								<img class="etalage_thumb_image" src="../images/s4.jpg" class="img-responsive"  />
-								<img class="etalage_source_image" src="../images/s-img3.jpg" class="img-responsive"  />
-							</li>
+						<?php } ?>
 						</ul>
 						 <div class="clearfix"></div>
 	            </div>
 		         <div class="desc1 span_3_of_2">
-		         	<h3 class="m_3">Lorem ipsum dolor sit amet</h3>
-		             <p class="m_5">Rs. 888 <span class="reducedfrom">Rs. 999</span> <a href="#">click for offer</a></p>
+		         	<h3 class="m_3"><?php echo $car['nome']; ?></h3>
+		             <p class="m_5">R$ <?php echo $car['preco']; ?><a href="#"> - Anunciado em <?php echo $car['data_anuncio']; ?></a></p>
 		         	 <div class="btn_form">
-						<form>
-							<input type="submit" value="buy" title="">
+						<form action="contact.php" method="post">
+							<input type="hidden" name="assunto" value="<?php echo $car['nome']; ?>">
+							<input type="submit" value="Entre em contato!">
 						</form>
 					 </div>
-					<span class="m_link"><a href="#">login to save in wishlist</a> </span>
-				     <p class="m_text2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit </p>
+				     <p class="m_text2"><?php echo $car['detalhes']; ?></p>
 			     </div>
 			   <div class="clear"></div>
 	    <div class="clients">
@@ -97,9 +95,9 @@ $script="
 			if(!isset($produtos[$i]['id'])){ continue; }
 			$img = getPatchFile($produtos[$i]['id']) ?>
 			<li onclick="getCar(<?php echo $produtos[$i]['id']; ?>)" >
-				<img onclick="getCar(<?php echo $produtos[$i]['id']; ?>)" src="../images/produtos/<?php echo isset($img)? $img : 'demoUpload.jpg'; ?>" />
+				<img onclick="getCar(<?php echo $produtos[$i]['id']; ?>)" src="../images/produtos/<?php echo isset($img[0]['patch_file'])? $img[0]['patch_file'] : 'demoUpload.jpg'; ?>" />
 				<a onClick="getCar(<?php echo $produtos[$i]['id']; ?>)" ><?php echo isset($produtos[$i]['nome'])? $produtos[$i]['nome'] : '-'; ?></a>
-			  <p onclick="getCar(<?php echo $produtos[$i]['id']; ?>)" ><?php echo isset($produtos[$i]['preco'])? $produtos[$i]['preco'] : '0'; ?></p>
+			  <p onclick="getCar(<?php echo $produtos[$i]['id']; ?>)" >R$ <?php echo isset($produtos[$i]['preco'])? $produtos[$i]['preco'] : '0'; ?></p>
 			</li>
 			<?php } ?>
 		 </ul>
@@ -153,12 +151,49 @@ $script="
 	<script type="text/javascript" src="../js/jquery.flexisel.js"></script>
      </div>
      <div class="toogle">
-     	<h3 class="m_3">Product Details</h3>
-     	<p class="m_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
-     </div>
+     	 <h3 class="m_3">Detalhes do Carro</h3>
+       <table class="table table-striped" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>Modelo</td>
+          <td><?php echo $car['nome']; ?></td>
+        </tr>
+        <tr>
+          <td>Ano</td>
+          <td><?php echo $car['ano']; ?></td>
+        </tr>
+        <tr>
+          <td>KM</td>
+          <td><?php echo $car['km']; ?></td>
+        </tr>
+				<tr>
+          <td>Cor</td>
+          <td><?php echo $car['cor']; ?></td>
+        </tr>
+				<tr>
+          <td>Portas</td>
+          <td><?php echo $car['portas']; ?></td>
+        </tr>
+				<tr>
+          <td>Combustivel</td>
+          <td><?php echo $car['combustivel']; ?></td>
+        </tr>
+				<tr>
+          <td>Cambio</td>
+          <td><?php echo $car['cambio']; ?></td>
+        </tr>
+				<tr>
+          <td>Final da placa</td>
+          <td><?php echo $car['final_placa']; ?></td>
+        </tr>
+				<tr>
+          <td>Carroceria</td>
+          <td><?php echo $car['carroceria']; ?></td>
+        </tr>
+      </table>
+     	</div>
      <div class="toogle">
-     	<h3 class="m_3">More Information</h3>
-     	<p class="m_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+     	<h3 class="m_3">Observações</h3>
+     	<p class="m_text"><?php echo $car['observacoes']; ?></p>
      </div>
       </div>
 			<div class="rsingle span_1_of_single">

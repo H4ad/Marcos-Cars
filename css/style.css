@@ -455,7 +455,7 @@ h2.head{
 
 .product_image {
 	height: 273px;
-    width: 300px;
+	width: 100%;
 }
 
 .product_image img{
