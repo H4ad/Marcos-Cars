@@ -160,4 +160,26 @@ function insert_car( $nome = null, $preco = null, $ano = null, $km = null, $cor 
 	close_database($database);
 	return $found;
 }
+
+function get_user( $user = null, $pass = null ) {
+
+	$database = open_database();
+	$found = false;
+	try {
+	    $sql = "SELECT * FROM `usuarios` WHERE `user` = '". $user ."' AND `pass` = '".$pass."'";
+	    $result = $database->query($sql);
+
+			if(is_object($result)){
+				if ($result->num_rows > 0) {
+		      $found = true;
+		    }
+			}
+	} catch (Exception $e) {
+	  $_SESSION['message'] = $e->GetMessage();
+	  $_SESSION['type'] = 'danger';
+  }
+
+	close_database($database);
+	return $found;
+}
 ?>

@@ -22,6 +22,6 @@ if ( !defined('DBAPI') )
 /** caminhos dos templates de header e footer **/
 define('HEADER_TEMPLATE', ABSPATH . 'header.php');
 define('FOOTER_TEMPLATE', ABSPATH . 'footer.php');
-
+$loginState = false;
 $config['site']['shopName'] = "Sekay Shop";
 ?>

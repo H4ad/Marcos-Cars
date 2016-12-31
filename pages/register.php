@@ -1,6 +1,7 @@
 <?php require_once('../inc/functions.php');
 $script = "<!-- FileUpload CSS --><link rel=\"stylesheet\" href=\"../css/bootstrap-fileupload.min.css\" /><script src=\"../js/jquery.js\"></script>";
-$footer = "<script src=\"../assets/plugins/jasny/js/bootstrap-fileupload.js\"></script>";
+include(HEADER_TEMPLATE);
+if(!$logado) { header("Location: index.php"); }
 $result = (isset($_POST['result']))? $_POST['result'] : '';
 $nome = (isset($_POST['nome']))? $_POST['nome'] : null;
 $preco = (isset($_POST['preco']))? $_POST['preco'] : null;
@@ -21,7 +22,7 @@ if($nome){
         $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" style=\"color: white;\">Falha!</a></ul><meta http-equiv=\"refresh\" content=\"10\">";
     }
 }
-include(HEADER_TEMPLATE);
+$footer = "<script src=\"../assets/plugins/jasny/js/bootstrap-fileupload.js\"></script>";
 ?>
 <div class="clear"></div>
 </div>

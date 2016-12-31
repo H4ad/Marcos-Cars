@@ -62,7 +62,7 @@
 								 <div class="cart-left">
 									 <p class="title"><?php echo isset($produtos[$k]['nome'])? $produtos[$k]['nome'] : 'Adicione algum produto!'; ?></p>
 										<div class="price1">
-											<span class="actual"><?php echo isset($produtos[$k]['preco'])? $produtos[$k]['preco'] : '0'; ?></span>
+											<span class="actual">R$ <?php echo isset($produtos[$k]['preco'])? $produtos[$k]['preco'] : '0'; ?></span>
 									</div>
 								</div>
 								<div class="cart-right"> </div>
@@ -92,7 +92,7 @@
 						  <div class="cart-left">
 								<p class="title"><?php echo isset($newsCars[$i]['nome'])? $newsCars[$i]['nome'] : 'Adicione algum produto!'; ?></p>
 								<div class="price1">
-								  <span class="actual"><?php echo isset($newsCars[$i]['preco'])? $newsCars[$i]['preco'] : '0'; ?></span>
+								  <span class="actual">R$ <?php echo isset($newsCars[$i]['preco'])? $newsCars[$i]['preco'] : '0'; ?></span>
 							</div>
 						</div>
 						<div class="cart-right"> </div>

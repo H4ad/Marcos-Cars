@@ -57,3 +57,7 @@ function addContact($nome = null, $email = null, $telefone = null, $assunto = nu
 function addCar($nome = null, $preco = null, $ano = null, $km = null, $cor = null, $portas = null, $combustivel = null, $cambio = null, $final_placa = null, $carroceria = null, $observacoes = null, $detalhes = null){
 	return insert_car($nome, $preco, $ano, $km, $cor, $portas, $combustivel, $cambio, $final_placa, $carroceria, $observacoes, $detalhes);
 }
+
+function user_exists($user = null, $pass = null){
+  return get_user($user, $pass);
+}
