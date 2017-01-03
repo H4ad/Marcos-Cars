@@ -1,7 +1,30 @@
 <?php
 require_once('../inc/functions.php');
+$script="
+<script src=\"../js/jquery.js\"></script>
+<script type=\"text/javascript\">
+	jQuery(document).ready(function(){
+		jQuery('#ajax_form_delete').submit(function(){
+			var dados = jQuery( this ).serialize();
+
+			jQuery.ajax({
+				type: \"POST\",
+				url: \"process_delete.php\",
+				data: dados,
+				success: function( data )
+				{
+					alert( data );
+					location.href = \"management.php\";
+				}
+			});
+
+			return false;
+		});
+	});
+</script>";
 include(HEADER_TEMPLATE);
 if(!$logado) { header("Location: index.php"); }
+
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 if(!is_numeric($pagina)) { $pagina = 1; }
 $orderby = (isset($_GET['orderby']))? $_GET['orderby'] : "`id` ASC";
@@ -11,7 +34,7 @@ $busca = (isset($_GET['busca']))? $_GET['busca'] : null;
 if($busca){
 	buttonAsk($busca,$orderby,$pagina,$carsperpage);
 }else {
-	loadCars(null,null,countCars(),$orderby,$pagina,$carsperpage);
+	loadCars(null,null,get_car_id_last(),$orderby,$pagina,$carsperpage);
 }
 ?>
 <div class="clear"></div>
@@ -67,9 +90,9 @@ if($busca){
 								</form>
 							</a>
 							<a style="padding-right: 5px;">
-								<form name="for2" method="post" action="edit.php">
-									<input type="hidden" name="edita" value="<?=$produto['id']?>" />
-									<input class="btn btn-warning btn-xs" type="submit" name="edit" value="Editar">
+								<form name="for2" method="get" action="single.php">
+									<input type="hidden" name="id" value="<?=$produto['id']?>" />
+									<input class="btn btn-warning btn-xs" type="submit" value="Editar">
 								</form>
 							</a>
 							<a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal">Excluir</a>
@@ -83,8 +106,8 @@ if($busca){
 									  </div>
 									  <div class="modal-body">Deseja realmente excluir este item?</div>
 									  <div class="modal-footer">
-											<form name="for3" method="post" action="excluir.php">
-												<input type="hidden" name="exclui" value="<?=$produto['id']?>" />
+											<form method="POST" action="#" id="ajax_form_delete">
+												<input type="hidden" name="id" value="<?=$produto['id']?>" />
 												<input class="btn btn-primary" type="submit" name="edit" value="Sim">
 											</form>
 										  <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
@@ -102,7 +125,7 @@ if($busca){
 					<nav>
 						<ul class="pagination">
 							<li>
-								<a href="other.php?pagina=1&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Previous">
+								<a href="management.php?pagina=1&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Previous">
 									<span aria-hidden="true">&laquo;</span>
 								</a>
 							</li>
@@ -113,10 +136,10 @@ if($busca){
 								if($pagina == $i)
 									$estilo = "class=\"active\"";
 							?>
-							<li <?php echo $estilo; ?> ><a href="other.php?pagina=<?php echo $i; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>"><?php echo $i; ?></a></li>
+							<li <?php echo $estilo; ?> ><a href="management.php?pagina=<?php echo $i; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>"><?php echo $i; ?></a></li>
 							<?php } ?>
 							<li>
-								<a href="other.php?pagina=<?php echo $i-1; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Next">
+								<a href="management.php?pagina=<?php echo $i-1; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>" aria-label="Next">
 									<span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>

@@ -1071,9 +1071,9 @@ table {
 	border-top:1px solid #ddd;
 	padding:2% 0;
 }
-.register_account table td {
+/*.register_account table td {
 	width: 100%;
-}
+}*/
 .register_account form input[type="text"], input[type="number"],input[type="date"], input[type="password"],.register_account form select {
 	font-size:0.95em;
 	color:#777;

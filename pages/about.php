@@ -1,4 +1,4 @@
-<?php require_once('../config.php'); ?>
+<?php require_once('../inc/functions.php'); ?>
 <?php include(HEADER_TEMPLATE); ?>
        <div class="login">
           <div class="wrap">

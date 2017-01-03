@@ -23,15 +23,15 @@ if($nome){
 		    <div class="content-top">
 			   <form method="POST" action="#" id="inline-validate">
     				<div class="to">
-                        <input name="nome" type="text" class="text" placeholder="Nome:" required>
-    				    <input name="email" type="text" class="text" placeholder="Email:" style="margin-left: 10px" required>
+            <input name="nome" type="text" class="text" placeholder="Nome:" required>
+            <input name="email" type="text" class="text" placeholder="Email:" style="margin-left: 10px" required>
     				</div>
     				<div class="to">
-                        <input name="telefone" type="text" class="text" placeholder="Telefone:" required>
+              <input name="telefone" type="text" class="text" placeholder="Telefone:" required>
     				 	<input name="assunto" type="text" class="text" placeholder="Assunto:" value="<?php echo isset($assunto)? $assunto : '';?>" style="margin-left: 10px" required>
     				</div>
     				<div class="text">
-                        <textarea name="mensagem" placeholder="Mensagem:" required></textarea>
+                    <textarea name="mensagem" placeholder="Mensagem:" required></textarea>
                     </div>
                     <div class="submit">
                  	    <a class="btn btn-theme" type="button" data-toggle="modal" href="#alterEmail">Enviar</a>

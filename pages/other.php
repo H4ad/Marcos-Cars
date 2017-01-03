@@ -12,7 +12,7 @@ $busca = (isset($_GET['busca']))? $_GET['busca'] : null;
 if($busca){
 	buttonAsk($busca,$orderby,$pagina,$carsperpage);
 }else {
-	loadCars(null,null,countCars(),$orderby,$pagina,$carsperpage);
+	loadCars(null,null,get_car_id_last(),$orderby,$pagina,$carsperpage);
 }
 include(HEADER_TEMPLATE);
 $k = 0;
@@ -77,14 +77,13 @@ $k = 0;
 			<div class="top-box">
 				<?php for($i = 1; $i < 4; $i++) {
 			  if(!isset($produtos[$k]['id'])) { continue; }
-        if(!isset($produtos[$k]['id'])) { $img = 'demoUpload.jpg';}
-        else { $img = getPatchFile($produtos[$k]['id'],1); $img = $img[0]['patch_file']; }
+        $img = getPatchFile($produtos[$k]['id'],1); $img = $img[0]['patch_file'];
         ?>
 				<div class="col_1_of_3 span_1_of_3">
 					 <a href="single.php?id=<?php echo $produtos[$k]['id']; ?>">
 					<div class="inner_content clearfix">
 					<div class="product_image">
-						<img src="../images/produtos/<?php echo $img; ?>" alt=""/>
+						<img src="../images/produtos/<?php echo isset($img)? $img : 'demoupload.jpg'; ?>" alt=""/>
 					</div>
 						<div class="price">
 						 <div class="cart-left">

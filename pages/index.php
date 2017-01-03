@@ -49,14 +49,13 @@
 				<?php for($z = 1; $z <= 3; $z++) { ?>
 					<div class="top-box">
 						<?php for($i = 1; $i <= 3; $i++) {
-						if(!isset($produtos[$k]['id'])) { $img = 'demoUpload.jpg';}
-						else { $img = getPatchFile($produtos[$k]['id'],1); $img = $img[0]['patch_file'];}
+						$img = getPatchFile($produtos[$k]['id'],1); $img = $img[0]['patch_file'];
 						?>
 						<div class="col_1_of_3 span_1_of_3">
-							 <a href="single.php?id=<?php echo isset($produtos[$k]['id'])? $produtos[$k]['id'] : ''; ?>">
+							 <a href="single.php?id=<?php echo isset($produtos[$k]['id'])? $produtos[$k]['id'] : get_car_id_last(); ?>">
 							<div class="inner_content clearfix">
 							<div class="product_image">
-								<img src="../images/produtos/<?php echo $img; ?>" alt=""/>
+								<img src="../images/produtos/<?php echo isset($img)? $img : 'demoupload.jpg'; ?>" alt=""/>
 							</div>
 								<div class="price">
 								 <div class="cart-left">
@@ -78,14 +77,13 @@
 	    <h2 class="head">Novos Carros</h2>
 		    <div class="section group">
 				<?php for($i = 0; $i < 3; $i++) {
-				if(!isset($newsCars[$i]['id'])) { $img = 'demoUpload.jpg';}
-				else { $img = getPatchFile($newsCars[$i]['id'],1); $img = $img[0]['patch_file']; }
+				$img = getPatchFile($newsCars[$i]['id'],1); $img = $img[0]['patch_file'];
 				?>
 			  <div class="col_1_of_3 span_1_of_3">
 			  	 <a href="single.php?id=<?php echo $newsCars[$i]['id']; ?>">
 					<div class="inner_content clearfix">
 				  <div class="product_image">
-						<img src="../images/produtos/<?php echo $img; ?>" alt=""/>
+						<img src="../images/produtos/<?php echo isset($img)? $img : 'demoupload.jpg'; ?>" alt=""/>
 					</div>
           <div class="sale-box"><span class="on_sale title_shop">Novos</span></div>
             <div class="price">

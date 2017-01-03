@@ -1,7 +1,9 @@
 <?php require_once('../inc/functions.php');
 $script = "<!-- FileUpload CSS --><link rel=\"stylesheet\" href=\"../css/bootstrap-fileupload.min.css\" /><script src=\"../js/jquery.js\"></script>";
 include(HEADER_TEMPLATE);
+
 if(!$logado) { header("Location: index.php"); }
+
 $result = (isset($_POST['result']))? $_POST['result'] : '';
 $nome = (isset($_POST['nome']))? $_POST['nome'] : null;
 $preco = (isset($_POST['preco']))? $_POST['preco'] : null;
@@ -16,11 +18,13 @@ $carroceria = (isset($_POST['carroceria']))? $_POST['carroceria'] : null;
 $observacoes = (isset($_POST['observacoes']))? $_POST['observacoes'] : null;
 $detalhes = (isset($_POST['detalhes']))? $_POST['detalhes'] : null;
 if($nome){
-    if(addCar($nome, $preco, $ano, $km, $cor, $portas, $combustivel, $cambio, $final_placa, $carroceria, $observacoes, $detalhes)){
-        $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Sucesso!</a></ul><meta http-equiv=\"refresh\" content=\"10\">";
-    }else{
-        $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" style=\"color: white;\">Falha!</a></ul><meta http-equiv=\"refresh\" content=\"10\">";
-    }
+  if(addCar($nome, $preco, $ano, $km, $cor, $portas, $combustivel, $cambio, $final_placa, $carroceria, $observacoes, $detalhes)){
+		if(addImage(get_car_id_last(), $_FILES[ 'fileUpload' ][ 'name' ], $_FILES[ 'fileUpload' ][ 'tmp_name' ], $_FILES[ 'fileUpload' ][ 'error' ])){
+      $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Sucesso!</a></ul><meta http-equiv=\"refresh\" content=\"10\">";
+		}else{ $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Sucesso ao cadastrar o carro, mas não foi possivel cadastrar a imagem.</a></ul><meta http-equiv=\"refresh\" content=\"10\">"; }
+  }else{
+      $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" style=\"color: white;\">Falha!</a></ul><meta http-equiv=\"refresh\" content=\"10\">";
+  }
 }
 $footer = "<script src=\"../assets/plugins/jasny/js/bootstrap-fileupload.js\"></script>";
 ?>
@@ -30,7 +34,7 @@ $footer = "<script src=\"../assets/plugins/jasny/js/bootstrap-fileupload.js\"></
           	<div class="wrap">
     	      <h4 class="title">Cadastrar Carro</h4>
 						<?php echo $result; ?>
-    		   <form action="#" method="POST">
+    		   <form action="#" method="POST" enctype="multipart/form-data">
     			 <div class="col_1_of_2 span_1_of_2" style="width: 31.2%;">
 		   			 <div><input name="nome" type="text" class="text" placeholder="Modelo:" required></div>
 		    			<div><input name="preco" type="number" class="text" placeholder="Preço:" required></div>
@@ -77,7 +81,7 @@ $footer = "<script src=\"../assets/plugins/jasny/js/bootstrap-fileupload.js\"></
 									<div class="col-lg-10">
 										<label class="control-label col-lg-14">Selecionar imagem</label>
 										<div class="fileupload fileupload-new" data-provides="fileupload">
-											<div class="fileupload-new thumbnail" style="width: 300px; height: 250px;"><img src="../images/produtos/demoUpload.jpg" alt="" style="width: 300px; height: 250px;"/></div>
+											<div class="fileupload-new thumbnail" style="width: 300px; height: 250px;"><img src="<?php echo IMAGE_PATCH . 'demoUpload.jpg'; ?>" alt="" style="width: 300px; height: 250px;"/></div>
 												<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 250px; line-height: 20px;"></div>
 												<span class="btn btn-file btn-primary"><span class="fileupload-new">Selecionar imagem</span><span class="fileupload-exists">Trocar</span><input name="fileUpload" type="file" /></span>
 											  <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
