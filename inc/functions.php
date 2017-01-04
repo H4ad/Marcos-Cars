@@ -18,7 +18,7 @@ function loadCars($limit = null, $betweenOne = null, $betweenTwo = null, $order 
 
 function loadNewCars() {
 	global $newsCars;
-	$newsCars = find('produtos', null, 3,null,get_car_id_last(), "`id` DESC");
+	$newsCars = find('produtos', null, 3,null,get_car_id_last(),"`id` DESC");
 }
 
 function countCars() {
@@ -43,7 +43,7 @@ function getPatchBanner($id, $limit = null){
 
 function getCar($id = null) {
 	$car = find('produtos', $id,null,null,get_car_id_last());
-	return $car;
+	return $car[0];
 }
 
 function addContact($nome = null, $email = null, $telefone = null, $assunto = null, $mensagem = null){

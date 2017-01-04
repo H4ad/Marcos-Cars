@@ -159,7 +159,7 @@ include(HEADER_TEMPLATE);
 			if(!isset($produtos[$i]['id'])){ continue; }
 			$img = getPatchFile($produtos[$i]['id']) ?>
 			<li onclick="getcarstring(<?php echo $produtos[$i]['id']; ?>)" >
-				<img onclick="getcarstring(<?php echo $produtos[$i]['id']; ?>)" src="../images/produtos/<?php echo isset($img[0]['patch_file'])? $img[0]['patch_file'] : 'demoUpload.jpg'; ?>" />
+				<img onclick="getcarstring(<?php echo $produtos[$i]['id']; ?>)" src="../images/produtos/<?php echo isset($img['patch_file'])? $img[0]['patch_file'] : 'demoupload.jpg'; ?>" />
 				<a onClick="getcarstring(<?php echo $produtos[$i]['id']; ?>)" ><?php echo isset($produtos[$i]['nome'])? $produtos[$i]['nome'] : '-'; ?></a>
 			  <p onclick="getcarstring(<?php echo $produtos[$i]['id']; ?>)" >R$ <?php echo isset($produtos[$i]['preco'])? $produtos[$i]['preco'] : '0'; ?></p>
 			</li>

@@ -36,6 +36,11 @@ if($busca){
 }else {
 	loadCars(null,null,get_car_id_last(),$orderby,$pagina,$carsperpage);
 }
+if($action == "addImage"){
+	if(addImage($_POST['addid'], $_FILES[ 'fileUpload' ][ 'name' ], $_FILES[ 'fileUpload' ][ 'tmp_name' ], $_FILES[ 'fileUpload' ][ 'error' ])){
+	$result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Banner adicionado!</a></ul>";
+}else{ $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" style=\"color: white;\">Falha ao adicionar o banner!</a></ul>"; }
+
 ?>
 <div class="clear"></div>
 </div>
@@ -59,7 +64,7 @@ if($busca){
 					</form>
 				</div>
 				<div class="col-sm-3">
-					<a href="register.php" class="btn btn-primary pull-right h2">Novo Carro</a>
+					<a href="register.php" class="btn btn-primary pull-right h2" style="margin-right:5px;">Novo Carro</a>
 				</div>
 		  </div> <!-- /#top -->
  			<hr />
@@ -151,5 +156,5 @@ if($busca){
 	  </div>
   </div>
 </div>
-		  <script src="js/jquery.easydropdown.js"></script>
+		<script src="js/jquery.easydropdown.js"></script>
 		<?php include(FOOTER_TEMPLATE); ?>

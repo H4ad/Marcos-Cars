@@ -1,6 +1,7 @@
 <?php
-error_reporting(0);
-ini_set("display_errors", 0 );
+//error_reporting(0);
+//ini_set("display_errors", 0 );
+date_default_timezone_set('America/Sao_Paulo');
 
 /** O nome do banco de dados*/
 define('DB_NAME', 'ecommerce');
@@ -11,7 +12,11 @@ define('DB_PASSWORD', 'root');
 /** nome do host do MySQL */
 define('DB_HOST', 'localhost');
 
+/** Caminho da pasta pages as images */
 define('IMAGE_PATCH', '../images/produtos/');
+
+/** E-mail para onde será enviado as mensagens da pagina contato */
+define('EMAIL_ADDRESS', 'vinyygamerlol@gmail.com');
 
 /** caminho absoluto para a pasta do sistema **/
 if ( !defined('ABSPATH') )

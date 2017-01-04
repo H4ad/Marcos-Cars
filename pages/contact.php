@@ -7,11 +7,61 @@ $email = (isset($_POST['email']))? $_POST['email'] : null;
 $telefone = (isset($_POST['telefone']))? $_POST['telefone'] : null;
 $assunto = (isset($_POST['assunto']))? $_POST['assunto'] : null;
 $mensagem = (isset($_POST['mensagem']))? $_POST['mensagem'] : null;
+
+$data_envio = date('d/m/Y');
+$hora_envio = date('H:i:s');
+
+$arquivo = "
+<style type='text/css'>
+body {
+margin:0px;
+font-family:Verdane;
+font-size:12px;
+color: #666666;
+}
+a{
+color: #666666;
+text-decoration: none;
+}
+a:hover {
+color: #FF0000;
+text-decoration: none;
+}
+</style>
+<html>
+	<table width='510' border='1' cellpadding='1' cellspacing='1' bgcolor='#CCCCCC'>
+		<tr>
+		  <td>
+			<tr>
+			 <td width='500'>Nome:".$nome."</td>
+			</tr>
+			<tr>
+			  <td width='320'>E-mail:<b>".$email."</b></td>
+			</tr>
+			<tr>
+			  <td width='320'>Telefone:<b>".$telefone."</b></td>
+			</tr>
+			<tr>
+			  <td width='320'>Mensagem:".$mensagem."</td>
+			</tr>
+		</td>
+	  </tr>
+	  <tr>
+		<td>Este e-mail foi enviado em <b>".$data_envio."</b> &agrave;s <b>".$hora_envio."</b></td>
+	  </tr>
+	</table>
+</html>
+";
+
+$headers = "From: ".$nome." <".$email.">";
+//$headers .= "Bcc: $EmailPadrao\r\n";
+
 if($nome){
-    if(addContact($nome, $email,$telefone,$assunto,$mensagem)){
-        $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" href=\"index.php\" style=\"color: white;\">Sucesso!</a></ul><meta http-equiv=\"refresh\" content=\"3\">";
+    $enviaremail = mail(EMAIL_ADDRESS, $assunto, $arquivo, $headers);
+    if($enviaremail){
+        $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" href=\"index.php\" style=\"color: white;\">E-mail enviado!</a></ul><meta http-equiv=\"refresh\" content=\"60\">";
     }else{
-        $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" href=\"index.php\" style=\"color: white;\">Falha!</a></ul><meta http-equiv=\"refresh\" content=\"3\">";
+        $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" href=\"index.php\" style=\"color: white;\">Falha ao enviar o e-mail, por favor, tente mais tarde!</a></ul><meta http-equiv=\"refresh\" content=\"60\">";
     }
 }
 ?>
@@ -21,13 +71,13 @@ if($nome){
         <?php echo $result; ?>
 	    <ul class="breadcrumb breadcrumb__t"><a class="home" href="index.php">Inicio</a>  / Contato</ul>
 		    <div class="content-top">
-			   <form method="POST" action="#" id="inline-validate">
+			   <form method="POST" action="" id="inline-validate">
     				<div class="to">
-            <input name="nome" type="text" class="text" placeholder="Nome:" required>
-            <input name="email" type="text" class="text" placeholder="Email:" style="margin-left: 10px" required>
+                        <input name="nome" type="text" class="text" placeholder="Nome:" required>
+                        <input name="email" type="text" class="text" placeholder="Email:" style="margin-left: 10px" required>
     				</div>
     				<div class="to">
-              <input name="telefone" type="text" class="text" placeholder="Telefone:" required>
+                        <input name="telefone" type="text" class="text" placeholder="Telefone:" required>
     				 	<input name="assunto" type="text" class="text" placeholder="Assunto:" value="<?php echo isset($assunto)? $assunto : '';?>" style="margin-left: 10px" required>
     				</div>
     				<div class="text">

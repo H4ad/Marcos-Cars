@@ -35,7 +35,7 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 	    $result = $database->query($sql);
 
 	    if ($result->num_rows > 0) {
-	      $found = $result->fetch_assoc();
+	      $found = $result->fetch_all(MYSQLI_BOTH);
 	    }
 
 	  } else {
@@ -43,7 +43,7 @@ function find( $table = null, $id = null, $limit = null, $betweenOne = null, $be
 	    $result = $database->query($sql);
 
 	    if ($result->num_rows > 0) {
-	      $found = $result->fetch_all(MYSQLI_ASSOC);
+	      $found = $result->fetch_all(MYSQLI_BOTH);
 	    }
 	  }
 	} catch (Exception $e) {
@@ -64,7 +64,7 @@ function _count( $table = null ) {
 	    $result = $database->query($sql);
 
 	    if ($result->num_rows > 0) {
-	      $found = $result->fetch_all(MYSQLI_ASSOC);
+	      $found = $result->fetch_all(MYSQLI_BOTH);
 	    }
 	} catch (Exception $e) {
 	  $_SESSION['message'] = $e->GetMessage();
@@ -88,7 +88,7 @@ function find_value( $busca = null, $order = null, $pagina = null, $carsperpage 
     $result = $database->query($sql);
 
     if ($result->num_rows > 0) {
-      $found = $result->fetch_all(MYSQLI_ASSOC);
+      $found = $result->fetch_all(MYSQLI_BOTH);
     }
 	} catch (Exception $e) {
 	  $_SESSION['message'] = $e->GetMessage();
@@ -111,7 +111,7 @@ function getPatchImage( $id = null, $limit = null ) {
 
 		if(is_object($result)){
 	    if ($result->num_rows > 0) {
-	      $found = $result->fetch_all(MYSQLI_ASSOC);
+	      $found = $result->fetch_all(MYSQLI_BOTH);
 	    }
 		}
 	} catch (Exception $e) {
@@ -132,7 +132,7 @@ function insert_contact( $nome = null, $email = null, $telefone = null, $assunto
 	$database = open_database();
 	$found = false;
 	try {
-	    $sql = "INSERT INTO `ecommerce`.`contato` (`nome`, `email`, `telefone`, `assunto`, `mensagem`) VALUES ('". $nome ."', '". $email ."', '". $telefone ."', '". $assunto ."', '". $mensagem ."')";
+	    $sql = "INSERT INTO `contato` (`nome`, `email`, `telefone`, `assunto`, `mensagem`) VALUES ('". $nome ."', '". $email ."', '". $telefone ."', '". $assunto ."', '". $mensagem ."')";
 	    $result = $database->query($sql);
       $found = true;
 	} catch (Exception $e) {
@@ -149,7 +149,7 @@ function insert_car( $nome = null, $preco = null, $ano = null, $km = null, $cor 
 	$database = open_database();
 	$found = false;
 	try {
-	    $sql = "INSERT INTO `ecommerce`.`produtos` VALUES (null,'".$nome."', '".$preco."', '".$ano."', '".$km."', '".$cor."', '".$portas."', '".$combustivel."', '".$cambio."', '".$final_placa."', '".$carroceria."', CURRENT_TIMESTAMP,'".$observacoes."', '".$detalhes."');";
+	    $sql = "INSERT INTO `produtos` VALUES (null,'".$nome."', '".$preco."', '".$ano."', '".$km."', '".$cor."', '".$portas."', '".$combustivel."', '".$cambio."', '".$final_placa."', '".$carroceria."', CURRENT_TIMESTAMP,'".$observacoes."', '".$detalhes."');";
 	    $result = $database->query($sql);
       $found = true;
 	} catch (Exception $e) {
@@ -230,7 +230,7 @@ function insert_image( $car_id = null, $image_name = null, $image_tmp = null, $i
         $novoNome = uniqid ( time () ) . "." . $extensao;
         $destino = IMAGE_PATCH . $novoNome;
         if ( @move_uploaded_file ( $arquivo_tmp, $destino ) ) {
-					$sql = "INSERT INTO `ecommerce`.`galeria` (`car_id`, `patch_file`) VALUES  ('". $car_id ."', '". $novoNome ."');";
+					$sql = "INSERT INTO `galeria` (`car_id`, `patch_file`) VALUES  ('". $car_id ."', '". $novoNome ."');";
 			    $result = $database->query($sql);
 					$found = true;
         }
@@ -249,7 +249,7 @@ function del_car( $car_id = null ) {
 	$database = open_database();
 	$found = false;
 	try {
-    $sql = "DELETE FROM `ecommerce`.`produtos` WHERE `produtos`.`id` = ". $car_id;
+    $sql = "DELETE FROM `produtos` WHERE `produtos`.`id` = ". $car_id;
     $result = $database->query($sql);
 		$found = true;
 	} catch (Exception $e) {
@@ -267,7 +267,7 @@ function del_all_image( $car_id = null ) {
 	try {
 		$files = getPatchFile($car_id);
 		foreach($files as $file){
-			if($file['patch_file'] != "demoUpload.jpg"){
+			if($file['patch_file'] != "demoupload.jpg"){
 				if(unlink(IMAGE_PATCH . $file['patch_file']));
 			}
 		}
@@ -310,7 +310,7 @@ function get_last_car_id( $user = null, $pass = null ) {
 
 			if(is_object($result)){
 				if ($result->num_rows > 0) {
-		      $found = $result->fetch_all(MYSQLI_ASSOC);
+		      $found = $result->fetch_all(MYSQLI_BOTH);
 		    }
 			}
 	} catch (Exception $e) {
