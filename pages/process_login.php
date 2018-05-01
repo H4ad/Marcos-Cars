@@ -1,9 +1,11 @@
 <?php
-require_once('../inc/functions.php');
+require_once('../classes/autoloader.php');
+Autoloader::init();
+
 $user = (isset($_POST['user']))? $_POST['user'] : null;
 $pass = (isset($_POST['pass']))? $_POST['pass'] : null;
 
-if(user_exists($user, $pass)){
+if(User::logIn($user, $pass)){
   //session_cache_expire(10);
   session_start();
   $_SESSION['logged'] = true;

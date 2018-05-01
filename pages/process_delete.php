@@ -1,11 +1,18 @@
 <?php
-require_once('../inc/functions.php');
-if(delete_car($_POST['id'])){
+require_once('../classes/autoloader.php');
+Autoloader::init();
+
+if(Produtos::delete($_POST['id'])){
 	echo "Carro deletado com sucesso";
-	if(delete_all_image($_POST['id'])){
+
+	if(Images::deleteAll($_POST['id'])){
 		echo " - Todas as imagens relacionadas a esse carro foram deletadas!";
-	}else { echo " - Erro ao deletar as imagens!"; }
+	}
+	else{
+		//TODO: Verificar uma forma correta de tratar erros
+		echo $_SESSION['message'];
+	}
 }else{
-	echo "Erro ao deletar o carro!";
+	echo $_SESSION['message'];
 }
 ?>

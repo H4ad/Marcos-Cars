@@ -1,19 +1,29 @@
 <?php
-error_reporting(0);
-ini_set("display_errors", 0 );
+require_once('../inc/config.php');
+require_once('../classes/autoloader.php');
+Autoloader::init();
 
-require_once('../inc/functions.php');
-$pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
-if(!is_numeric($pagina)) { $pagina = 1; }
-$orderby = (isset($_GET['orderby']))? $_GET['orderby'] : "`id` DESC";
-$carsperpage = (isset($_GET['carsperpage']))? $_GET['carsperpage'] : 15;
-if(!is_numeric($carsperpage)) { $carsperpage = 15; }
-$busca = (isset($_GET['busca']))? $_GET['busca'] : null;
-if($busca){
-	buttonAsk($busca,$orderby,$pagina,$carsperpage);
-}else {
-	loadCars(null,null,get_car_id_last(),$orderby,$pagina,$carsperpage);
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+if(!is_numeric($pagina)) {
+	$pagina = 1;
 }
+
+$orderby = isset($_GET['orderby']) ? $_GET['orderby'] : "`id` DESC";
+$carsperpage = isset($_GET['carsperpage'])? $_GET['carsperpage'] : 15;
+
+if(!is_numeric($carsperpage)) {
+	$carsperpage = 15;
+}
+
+$produtos = [];
+
+if(isset($_GET['busca'])){
+	$produtos = Produtos::find($_GET['busca'], $orderby, $pagina, $carsperpage);
+}else {
+	$produtos = Produtos::pagination($orderby, $pagina, $carsperpage);
+}
+
 include(HEADER_TEMPLATE);
 $k = 0;
 ?>
@@ -112,7 +122,7 @@ $k = 0;
 				  </a>
 				</li>
 				<?php
-				$numPaginas = ceil(countCars()/$carsperpage);
+				$numPaginas = ceil(count($produtos)/$carsperpage);
 				for($i = 1; $i < $numPaginas + 1; $i++) {
 				$estilo = "";
 				if($pagina == $i)

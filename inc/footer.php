@@ -1,4 +1,6 @@
 <div class="footer">
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script src="../assets/js/bootstrap.min.js"></script>
 		<div class="footer-middle">
 			<div class="wrap">
 		   <div class="section group example">
@@ -69,8 +71,6 @@
 		      </div>
 	     </div>
 	</div>
-	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="../assets/js/bootstrap.min.js"></script>
 	<?php echo isset($footer)? $footer : ''; ?>
 </body>
 </html>

@@ -1,40 +1,65 @@
-<?php require_once('../inc/functions.php');
+<?php
+require_once('../inc/config.php');
+require_once('../classes/autoloader.php');
+Autoloader::init();
+
 $script = "<!-- FileUpload CSS --><link rel=\"stylesheet\" href=\"../css/bootstrap-fileupload.min.css\" /><script src=\"../js/jquery.js\"></script>";
 include(HEADER_TEMPLATE);
 
 if(!$logado) { header("Location: index.php"); }
 
-$result = (isset($_POST['result']))? $_POST['result'] : '';
-$nome = (isset($_POST['nome']))? $_POST['nome'] : null;
-$preco = (isset($_POST['preco']))? $_POST['preco'] : null;
-$ano = (isset($_POST['ano']))? $_POST['ano'] : null;
-$km = (isset($_POST['km']))? $_POST['km'] : null;
-$cor = (isset($_POST['cor']))? $_POST['cor'] : null;
-$portas = (isset($_POST['portas']))? $_POST['portas'] : null;
-$combustivel = (isset($_POST['combustivel']))? $_POST['combustivel'] : null;
-$cambio = (isset($_POST['cambio']))? $_POST['cambio'] : null;
-$final_placa = (isset($_POST['final_placa']))? $_POST['final_placa'] : null;
-$carroceria = (isset($_POST['carroceria']))? $_POST['carroceria'] : null;
-$observacoes = (isset($_POST['observacoes']))? $_POST['observacoes'] : null;
-$detalhes = (isset($_POST['detalhes']))? $_POST['detalhes'] : null;
-if($nome){
-  if(addCar($nome, $preco, $ano, $km, $cor, $portas, $combustivel, $cambio, $final_placa, $carroceria, $observacoes, $detalhes)){
-		if(addImage(get_car_id_last(), $_FILES[ 'fileUpload' ][ 'name' ], $_FILES[ 'fileUpload' ][ 'tmp_name' ], $_FILES[ 'fileUpload' ][ 'error' ])){
-      $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Sucesso!</a></ul><meta http-equiv=\"refresh\" content=\"60\">";
-		}else{ $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Sucesso ao cadastrar o carro, mas não foi possivel cadastrar a imagem.</a></ul><meta http-equiv=\"refresh\" content=\"60\">"; }
+$result = "";
+
+$resultSuccess = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Sucesso!</a></ul><meta http-equiv=\"refresh\" content=\"60\">";
+
+$resultImgFail = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Sucesso ao cadastrar o carro, mas não foi possivel cadastrar a imagem.</a></ul><meta http-equiv=\"refresh\" content=\"60\">";
+
+$resultFail = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" style=\"color: white;\">Falha!</a></ul><meta http-equiv=\"refresh\" content=\"60\">";
+
+if(isset($_POST['nome'])){
+	if(Produtos::add($_POST['nome'],
+					 $_POST['preco'],
+					 $_POST['ano'],
+					 $_POST['km'],
+					 $_POST['cor'],
+					 $_POST['portas'],
+					 $_POST['combustivel'],
+					 $_POST['cambio'],
+					 $_POST['final_placa'],
+					 $_POST['carroceria'],
+					 $_POST['observacoes'],
+					 $_POST['detalhes'])
+	){
+		$car = Produtos::getLastCar();
+
+		if(count($car) == 0){
+			$result = $resultImgFail;
+		}{
+			if(Images::add($car[0]->getId(),
+						   $_FILES[ 'fileUpload' ][ 'name' ],
+						   $_FILES[ 'fileUpload' ][ 'tmp_name' ],
+						   $_FILES[ 'fileUpload' ][ 'error' ])
+			){
+				$result = $resultSuccess;
+			}else{
+				$result = $resultImgFail;
+			}
+		}
   }else{
-      $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" style=\"color: white;\">Falha!</a></ul><meta http-equiv=\"refresh\" content=\"60\">";
+      $result = $resultFail;
   }
 }
+
 $footer = "<script src=\"../assets/plugins/jasny/js/bootstrap-fileupload.js\"></script>";
+
 ?>
 <div class="clear"></div>
 </div>
           <div class="register_account">
           	<div class="wrap">
     	      <h4 class="title">Cadastrar Carro</h4>
-						<?php echo $result; ?>
-    		   <form action="#" method="POST" enctype="multipart/form-data">
+			  <?php echo $result; ?>
+    		  <form action="#" method="POST" enctype="multipart/form-data">
     			 <div class="col_1_of_2 span_1_of_2" style="width: 31.2%;">
 		   			 <div><input name="nome" type="text" class="text" placeholder="Modelo:" required></div>
 		    			<div><input name="preco" type="number" class="text" placeholder="Preço:" required></div>

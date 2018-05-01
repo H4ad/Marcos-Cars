@@ -10,11 +10,11 @@
 					<h3>Você tem certeza que deseja deletar esse carro ?</h3>
 				</div>
 				<div class="modal-footer">
-        <form action="#" method="POST" id="ajax_form_delete">
-					<input type="hidden" name="id" value="<?php echo $car['id']; ?>">
-					<button data-dismiss="modal" class="btn btn-default" type="button">Não</button>
-					<button class="btn btn-theme" type="submit">Sim</button>
-        </form>
+			        <form action="#" method="POST" id="ajax_form_delete">
+						<input type="hidden" name="id" value="<?php echo $car['id']; ?>">
+						<button data-dismiss="modal" class="btn btn-default" type="button">Não</button>
+						<button class="btn btn-theme" type="submit">Sim</button>
+			        </form>
 				</div>
 			</div>
 		</div>

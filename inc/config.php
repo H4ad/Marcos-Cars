@@ -8,7 +8,7 @@ define('DB_NAME', 'ecommerce');
 /** Usuário do banco de dados MySQL */
 define('DB_USER', 'root');
 /** Senha do banco de dados MySQL */
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', '');
 /** nome do host do MySQL */
 define('DB_HOST', 'localhost');
 
@@ -31,8 +31,8 @@ if ( !defined('DBAPI') )
 	define('DBAPI', ABSPATH . 'database.php');
 
 /** caminhos dos templates de header e footer **/
-define('HEADER_TEMPLATE', ABSPATH . 'header.php');
-define('FOOTER_TEMPLATE', ABSPATH . 'footer.php');
+define('HEADER_TEMPLATE', ABSPATH . '../inc/header.php');
+define('FOOTER_TEMPLATE', ABSPATH . '../inc/footer.php');
 
 $config['site']['shopName'] = "Sekay Shop";
 ?>

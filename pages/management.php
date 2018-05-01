@@ -1,6 +1,9 @@
-<?php
-require_once('../inc/functions.php');
-$script="
+﻿<?php
+require_once("../inc/config.php");
+require_once("../classes/autoloader.php");
+Autoloader::init();
+
+$script = "
 <script src=\"../js/jquery.js\"></script>
 <script type=\"text/javascript\">
 	jQuery(document).ready(function(){
@@ -23,23 +26,32 @@ $script="
 	});
 </script>";
 include(HEADER_TEMPLATE);
-if(!$logado) { header("Location: index.php"); }
+
+if(!$logado){
+	header("Location: index.php");
+}
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
-if(!is_numeric($pagina)) { $pagina = 1; }
+
+if(!is_numeric($pagina)){
+	$pagina = 1;
+}
+
 $orderby = (isset($_GET['orderby']))? $_GET['orderby'] : "`id` ASC";
 $carsperpage = (isset($_GET['carsperpage']))? $_GET['carsperpage'] : 15;
-if(!is_numeric($carsperpage)) { $carsperpage = 15; }
-$busca = (isset($_GET['busca']))? $_GET['busca'] : null;
-if($busca){
-	buttonAsk($busca,$orderby,$pagina,$carsperpage);
-}else {
-	loadCars(null,null,get_car_id_last(),$orderby,$pagina,$carsperpage);
+
+if(!is_numeric($carsperpage)){
+	$carsperpage = 15;
 }
-if($action == "addImage"){
-	if(addImage($_POST['addid'], $_FILES[ 'fileUpload' ][ 'name' ], $_FILES[ 'fileUpload' ][ 'tmp_name' ], $_FILES[ 'fileUpload' ][ 'error' ])){
-	$result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: green;\"><a class=\"home\" style=\"color: white;\">Banner adicionado!</a></ul>";
-}else{ $result = "<ul class=\"breadcrumb breadcrumb__t\" style=\"background-color: red;\"><a class=\"home\" style=\"color: white;\">Falha ao adicionar o banner!</a></ul>"; }
+
+$produtos = [];
+
+if(isset($_GET['busca'])){
+	$produtos = Produtos::find($_GET['busca'], $orderby, $pagina, $carsperpage);
+}else {
+	$produtos = Produtos::pagination($orderby, $pagina, $carsperpage);
+}
+
 
 ?>
 <div class="clear"></div>
@@ -81,48 +93,48 @@ if($action == "addImage"){
 						</tr>
 					</thead>
 					<tbody>
-					<?php	foreach($produtos as $produto) { ?>
-					<tr>
-						<td><?=$produto['id']?></td>
-						<td><?=$produto['nome']?></td>
-						<td><?=$produto['preco']?></td>
-						<td><?=$produto['data_anuncio']?></td>
-						<td class="actions" style="display: inline-flex;">
-							<a style="padding-right: 10px; padding-left: 10px;">
-								<form name="form1" method="get" action="single.php">
-									<input type="hidden" name="id" value="<?=$produto['id']?>" /> <!-- Esse var vai ser utilizado para identificar qual registro eu quero mudar -->
-									<input class="btn btn-success btn-xs" type="submit" value="Visualizar">
-								</form>
-							</a>
-							<a style="padding-right: 5px;">
-								<form name="for2" method="get" action="single.php">
-									<input type="hidden" name="id" value="<?=$produto['id']?>" />
-									<input class="btn btn-warning btn-xs" type="submit" value="Editar">
-								</form>
-							</a>
-							<a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal">Excluir</a>
-							<!-- Modal -->
-							<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-							  <div class="modal-dialog" role="document">
-									<div class="modal-content">
-									  <div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="modalLabel">Excluir Item</h4>
-									  </div>
-									  <div class="modal-body">Deseja realmente excluir este item?</div>
-									  <div class="modal-footer">
-											<form method="POST" action="#" id="ajax_form_delete">
-												<input type="hidden" name="id" value="<?=$produto['id']?>" />
-												<input class="btn btn-primary" type="submit" name="edit" value="Sim">
+					<?php 	foreach($produtos as $produto) { ?>
+								<tr>
+									<td><?=$produto->getId()?></td>
+									<td><?=$produto->getNome()?></td>
+									<td><?=$produto->getPreco()?></td>
+									<td><?=$produto->getDataAnuncio()?></td>
+									<td class="actions" style="display: inline-flex;">
+										<a style="padding-right: 10px; padding-left: 10px;">
+											<form name="form1" method="get" action="single.php">
+												<input type="hidden" name="id" value="<?=$produto->getId()?>" /> <!-- Esse var vai ser utilizado para identificar qual registro eu quero mudar -->
+												<input class="btn btn-success btn-xs" type="submit" value="Visualizar">
 											</form>
-										  <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
-									  </div>
-									</div>
-							  </div>
-							</div>
-						</td>
-					</tr>
-				  <?php  }  ?>
+										</a>
+										<a style="padding-right: 5px;">
+											<form name="for2" method="get" action="single.php">
+												<input type="hidden" name="id" value="<?=$produto->getId()?>" />
+												<input class="btn btn-warning btn-xs" type="submit" value="Editar">
+											</form>
+										</a>
+										<a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal">Excluir</a>
+										<!-- Modal -->
+										<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+										  <div class="modal-dialog" role="document">
+												<div class="modal-content">
+												  <div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+														<h4 class="modal-title" id="modalLabel">Excluir Item</h4>
+												  </div>
+												  <div class="modal-body">Deseja realmente excluir este item?</div>
+												  <div class="modal-footer">
+														<form method="POST" action="#" id="ajax_form_delete">
+															<input type="hidden" name="id" value="<?=$produto->getId()?>" />
+															<input class="btn btn-primary" type="submit" name="edit" value="Sim">
+														</form>
+													  <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
+												  </div>
+												</div>
+										  </div>
+										</div>
+									</td>
+								</tr>
+					<?php   } ?>
 			    </tbody>
 				</table>
 				<div class="col-lg-4">
@@ -135,11 +147,12 @@ if($action == "addImage"){
 								</a>
 							</li>
 							<?php
-								$numPaginas = ceil(countCars()/$carsperpage);
+								$numPaginas = ceil(count($produtos)/$carsperpage);
+
 								for($i = 1; $i < $numPaginas + 1; $i++) {
-								$estilo = "";
-								if($pagina == $i)
-									$estilo = "class=\"active\"";
+									$estilo = "";
+									if($pagina == $i)
+										$estilo = "class=\"active\"";
 							?>
 							<li <?php echo $estilo; ?> ><a href="management.php?pagina=<?php echo $i; ?>&busca=<?php echo $busca; ?>&carsperpage=<?php echo $carsperpage; ?>&orderby=<?php echo $orderby; ?>"><?php echo $i; ?></a></li>
 							<?php } ?>
@@ -156,5 +169,4 @@ if($action == "addImage"){
 	  </div>
   </div>
 </div>
-		<script src="js/jquery.easydropdown.js"></script>
 		<?php include(FOOTER_TEMPLATE); ?>

@@ -22,7 +22,6 @@
 <script src="../js/css3-mediaqueries.js"></script>
 <script src="../js/fwslider.js"></script>
 <!--end slider -->
-
 <script src="../js/jquery.easydropdown.js"></script>
 <?php echo isset($script)? $script : ''; ?>
 </head>
@@ -31,14 +30,15 @@
 		 <div class="wrap">
 			 <div class="cssmenu">
 				<ul>
-          <?php
+          		<?php
 					session_start();
 					$logado = (isset($_SESSION["logged"]))? $_SESSION["logged"] : false;
 					if ($logado) {
 						echo "<li><a href=\"management.php\">Painel de Controle</a></li><li><a href=\"process_sair.php\">Sair</a></li>";
 					}else {
 						echo "<li><a href=\"login.php\">Entrar</a></li>";
-					}?>
+					}
+				?>
 				</ul>
 			</div>
 			<div class="clear"></div>

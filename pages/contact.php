@@ -1,5 +1,5 @@
 <?php
-require_once('../inc/functions.php');
+require_once('../inc/config.php');
 include(HEADER_TEMPLATE);
 $result = (isset($_POST['result']))? $_POST['result'] : '';
 $nome = (isset($_POST['nome']))? $_POST['nome'] : null;
@@ -11,47 +11,7 @@ $mensagem = (isset($_POST['mensagem']))? $_POST['mensagem'] : null;
 $data_envio = date('d/m/Y');
 $hora_envio = date('H:i:s');
 
-$arquivo = "
-<style type='text/css'>
-body {
-margin:0px;
-font-family:Verdane;
-font-size:12px;
-color: #666666;
-}
-a{
-color: #666666;
-text-decoration: none;
-}
-a:hover {
-color: #FF0000;
-text-decoration: none;
-}
-</style>
-<html>
-	<table width='510' border='1' cellpadding='1' cellspacing='1' bgcolor='#CCCCCC'>
-		<tr>
-		  <td>
-			<tr>
-			 <td width='500'>Nome:".$nome."</td>
-			</tr>
-			<tr>
-			  <td width='320'>E-mail:<b>".$email."</b></td>
-			</tr>
-			<tr>
-			  <td width='320'>Telefone:<b>".$telefone."</b></td>
-			</tr>
-			<tr>
-			  <td width='320'>Mensagem:".$mensagem."</td>
-			</tr>
-		</td>
-	  </tr>
-	  <tr>
-		<td>Este e-mail foi enviado em <b>".$data_envio."</b> &agrave;s <b>".$hora_envio."</b></td>
-	  </tr>
-	</table>
-</html>
-";
+$arquivo = include("/modals/mailModal.php");
 
 $headers = "From: ".$nome." <".$email.">";
 //$headers .= "Bcc: $EmailPadrao\r\n";
